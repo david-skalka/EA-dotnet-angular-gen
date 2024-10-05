@@ -29,7 +29,7 @@ namespace EADotnetAngularGen.Templates.Client
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("import { Component, OnInit, ViewChild } from \'@angular/core\';\r\nimport { ");
+            this.Write("import { Component, Inject, OnInit, ViewChild } from \'@angular/core\';\r\nimport { ");
             
             #line 8 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
@@ -43,7 +43,14 @@ namespace EADotnetAngularGen.Templates.Client
             
             #line default
             #line hidden
-            this.Write(@"Service } from '../api';
+            this.Write("Service, ");
+            
+            #line 8 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write(@"ServiceInterface } from '../api';
 import { CommonModule } from '@angular/common';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
@@ -121,7 +128,14 @@ import { ");
             
             #line default
             #line hidden
-            this.Write(", \'actions\'];\r\n  \r\n\r\n  constructor(private ");
+            this.Write(", \'actions\'];\r\n  \r\n\r\n  constructor(@Inject(");
+            
+            #line 38 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Service) private ");
             
             #line 38 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
@@ -135,9 +149,9 @@ import { ");
             
             #line default
             #line hidden
-            this.Write("Service, private matDialog: MatDialog) { }\r\n\r\n  async ngOnInit(): Promise<void> {" +
-                    "\r\n    await this.loadData();\r\n  }\r\n\r\n  async loadData() {\r\n    this.dataSource.d" +
-                    "ata= await lastValueFrom(this.");
+            this.Write("ServiceInterface, private matDialog: MatDialog) { }\r\n\r\n  async ngOnInit(): Promis" +
+                    "e<void> {\r\n    await this.loadData();\r\n  }\r\n\r\n  async loadData() {\r\n    this.dat" +
+                    "aSource.data= await lastValueFrom(this.");
             
             #line 45 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));

@@ -49,7 +49,7 @@ namespace EADotnetAngularGenTests
         [Test]
         public void EditComponentTest()
         {
-            var content = new EditComponent() { Model = diagram.Single(x => x.Name == "Comment"), }.TransformText();
+            var content = new EditComponent() { Model = diagram.Single(x => x.Name == "Product"), }.TransformText();
             Console.WriteLine(content);
         }
 

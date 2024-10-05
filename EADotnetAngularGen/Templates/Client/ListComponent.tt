@@ -4,8 +4,8 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="CaseExtensions" #>
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { <#= Model.Name  #>, <#= Model.Name  #>Service } from '../api';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { <#= Model.Name  #>, <#= Model.Name  #>Service, <#= Model.Name  #>ServiceInterface } from '../api';
 import { CommonModule } from '@angular/common';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
@@ -35,7 +35,7 @@ export class <#= Model.Name  #>ListComponent implements OnInit {
   displayedColumns: string[] = [<#= string.Join(", ", Model.Attributes.Cast<EA.Attribute>().Select(x=> "'" + x.Name.ToCamelCase()  + "'" ))  #>, 'actions'];
   
 
-  constructor(private <#= Model.Name.ToCamelCase()  #>Service: <#= Model.Name  #>Service, private matDialog: MatDialog) { }
+  constructor(@Inject(<#= Model.Name  #>Service) private <#= Model.Name.ToCamelCase()  #>Service: <#= Model.Name  #>ServiceInterface, private matDialog: MatDialog) { }
 
   async ngOnInit(): Promise<void> {
     await this.loadData();

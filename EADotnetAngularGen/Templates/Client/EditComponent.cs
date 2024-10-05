@@ -41,7 +41,7 @@ import {MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { ");
             
             #line 16 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(", ", Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive()).Select(x=>x.Type).Concat(new string[]{Model.Name}).Select(x=> string.Format("{0}, {0}Service", x)))));
+            this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(", ", Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive()).Select(x=>x.Type).Concat(new string[]{Model.Name}).Select(x=> string.Format("{0}, {0}Service, {0}ServiceInterface", x)))));
             
             #line default
             #line hidden
@@ -179,7 +179,7 @@ foreach (EA.Attribute attr in Model.Attributes) {
             this.Write("EditComponent>, ");
             
             #line 57 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(", ", Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive()).Select(x=>x.Type).Concat(new string[]{Model.Name}).Select(x=> string.Format("private {0}Service: {1}Service", x.ToCamelCase(), x)))));
+            this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(", ", Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive()).Select(x=>x.Type).Concat(new string[]{Model.Name}).Select(x=> string.Format("@Inject({1}Service) private {0}Service: {1}ServiceInterface", x.ToCamelCase(), x)))));
             
             #line default
             #line hidden
