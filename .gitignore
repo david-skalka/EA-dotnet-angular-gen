@@ -1,0 +1,10 @@
+EADotnetAngularGen/bin
+EADotnetAngularGen/obj
+EADotnetAngularGenTests/bin
+EADotnetAngularGenTests/obj
+.cr
+.vs
+
+*.code-workspace
+.vs
+packages

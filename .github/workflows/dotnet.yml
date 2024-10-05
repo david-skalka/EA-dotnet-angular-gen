@@ -1,0 +1,40 @@
+name: .NET
+
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up MSBuild
+      uses: microsoft/setup-msbuild@v1
+    - name: Set up NuGet
+      uses: NuGet/setup-nuget@v1
+    - name: Restore NuGet packages
+      run: nuget restore
+    - name: Build the solution
+      run: msbuild MySolution.sln /p:Configuration=Release
+      - name: Run NUnit tests using vstest.console.exe
+      run: |
+        "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\TestPlatform\vstest.console.exe" EADotnetAngularGenTests/bin/Debug/EADotnetAngularGenTests.dll
+    - name: Generate a sample project
+      shell: pwsh
+      run: | 
+        EADotnetAngularGen/bin/Debug/net6.0/EADotnetAngularGen.exe -d ..\..\..\DotnetAngularSample -f "..\..\..\Data\SampleModel.qea" -n SampleApp -p .*
+    - name: Test sample project
+      run: dotnet test
+    - name: Update Angular api
+      run: npm run update-api
+      working-directory: DotnetAngularSample/DotnetAngularSampleClient
+    - uses: actions/upload-artifact@v4
+      with:
+        name: Generator
+        path: EADotnetAngularGen/bin/Debug/*

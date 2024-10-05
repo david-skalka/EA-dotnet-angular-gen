@@ -1,0 +1,86 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+using Microsoft.EntityFrameworkCore;
+using <#= Info.ProjectName #>;
+using <#= Info.ProjectName #>.Models;
+
+namespace <#= Info.ProjectName #>IntegrationTest.Seeders
+{
+
+    public class DefaultSeeder : ISeeder
+    {
+
+<# foreach (var model in Entities) { #>
+  
+
+    virtual protected List<<#= model.Name  #>> <#= model.Name #>
+    {
+            get
+            {
+                return new List<<#= model.Name  #>>{
+<# for(var i=0; i< Info.SeedCount; i++) { #>
+<# var values= ElementAutoFaker.GenerateFromElement(model); model.Attributes.Cast<EA.Attribute>().Where(x=> !x.IsTypePrimitive()).ToList().ForEach(attr => values[attr.Name+"Id"]=1); values["Id"]= i+1; #>
+                <#=new ObjectInitializer(model.Name,  values) .ToText()  #>,
+<# } #>
+            };
+        }
+    }
+
+
+<# } #>
+
+
+    public virtual List<object> GetAll()
+    {
+        var retD = new List<object>();
+<# foreach(var entity in Entities) { #>
+        retD.AddRange(<#= entity.Name  #>);
+<# } #>
+        return retD;
+    }
+
+
+    public void Seed(ApplicationDbContext dbContext)
+    {
+        GetAll().ForEach(x =>
+        {
+            dbContext.AddRange(x);
+            dbContext.SaveChanges();
+        });
+    }
+
+    public void Clear(ApplicationDbContext dbContext)
+    {
+        var tables = GetAll().Select((x => x.GetType())).Distinct().Reverse();
+        foreach (var table in tables)
+        {
+            var myClassTableName = dbContext.Model.FindEntityType(table);
+
+            if (myClassTableName != null)
+                dbContext.Database.ExecuteSqlRaw(
+                    "DELETE FROM " + myClassTableName.GetTableName()
+                );
+        }
+    }
+
+ 
+
+}
+
+
+
+
+}
+
+
+<#+
+public EA.Element[] Entities { get; set; }
+
+public Info Info { get; set; }
+
+
+
+#>

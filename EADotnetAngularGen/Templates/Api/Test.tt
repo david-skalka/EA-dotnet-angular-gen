@@ -1,0 +1,130 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+using System.Net.Http.Json;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Extensions.DependencyInjection;
+using <#= Info.ProjectName #>;
+using <#= Info.ProjectName #>.Models;
+
+namespace <#= Info.ProjectName #>IntegrationTest
+{
+    public class <#= Model.Name #>Test
+    {
+
+        protected readonly CustomWebApplicationFactory<Program> Factory = new();
+
+        protected readonly HttpClient Client;
+        
+        public <#= Model.Name #>Test()
+        {
+            Client = Factory.CreateClient(
+                new WebApplicationFactoryClientOptions { AllowAutoRedirect = false }
+            );
+        
+        
+        }
+        
+        [SetUp]
+        public void DbSetup()
+        {
+            if (TestContext.CurrentContext.Test.Properties.Get("Seeder") is string seeder)
+            {
+                ISeeder seederInstance = (ISeeder)Activator.CreateInstance(Type.GetType(seeder)!)!;
+                seederInstance
+                    .Seed(
+                        Factory
+                            .Services.CreateScope()
+                            .ServiceProvider.GetRequiredService<ApplicationDbContext>()
+                    );
+            }
+        
+        
+        
+        
+        }
+        
+        [TearDown]
+        public void DbTeardown()
+        {
+            if (TestContext.CurrentContext.Test.Properties.Get("Seeder") is string seeder)
+            {
+                ISeeder seederInstance = (ISeeder)Activator.CreateInstance(Type.GetType(seeder)!)!;
+                seederInstance
+                    .Clear(
+                            Factory
+                                .Services.CreateScope()
+                                .ServiceProvider.GetRequiredService<ApplicationDbContext>()
+                        );
+            }
+        }
+
+
+        [OneTimeTearDown]
+        public void Dispose()
+        {
+            Client.Dispose();
+            Factory.Dispose();
+        }
+
+
+        [Test, Property("Seeder", "<#= Info.ProjectName #>IntegrationTest.Seeders.DefaultSeeder")]
+        public async Task <#= Model.Name #>GetTest()
+        {
+            var defaultPage = await Client.GetAsync("/<#= Model.Name #>");
+            defaultPage.EnsureSuccessStatusCode();
+        }
+
+
+
+        [Test, Property("Seeder", "<#= Info.ProjectName #>IntegrationTest.Seeders.DefaultSeeder")]
+        public async Task <#= Model.Name #>GetOneTest()
+        {
+            var defaultPage = await Client.GetAsync("/<#= Model.Name #>/1");
+            defaultPage.EnsureSuccessStatusCode();
+        }
+
+        [Test, Property("Seeder", "<#= Info.ProjectName #>IntegrationTest.Seeders.DefaultSeeder")]
+        public async Task <#= Model.Name #>CreateTest()
+        {
+<# var createValues = ElementAutoFaker.GenerateFromElement(Model); Model.Attributes.Cast<EA.Attribute>().Where(x => !x.IsTypePrimitive()).ToList().ForEach(x=> createValues[x.Name + "Id"]=1); createValues.Remove("Id"); #>
+            var arg = <#= new ObjectInitializer(Model.Name, createValues).ToText()  #>; 
+            var defaultPage = await Client.PostAsJsonAsync("/<#= Model.Name #>", arg); 
+            defaultPage.EnsureSuccessStatusCode();
+        }
+
+
+        [Test, Property("Seeder", "<#= Info.ProjectName #>IntegrationTest.Seeders.DefaultSeeder")]
+        public async Task <#= Model.Name #>UpdateTest()
+        {
+<# var updateValues = ElementAutoFaker.GenerateFromElement(Model); Model.Attributes.Cast<EA.Attribute>().Where(x => !x.IsTypePrimitive()).ToList().ForEach(x=> updateValues[x.Name + "Id"]=1); updateValues["Id"]=1; #>
+            var arg = <#=  new ObjectInitializer(Model.Name, updateValues ).ToText()  #>; 
+            var defaultPage = await Client.PutAsJsonAsync("/<#= Model.Name #>", arg); 
+            defaultPage.EnsureSuccessStatusCode();
+        }
+
+
+        
+        [Test, Property("Seeder", "<#= Info.ProjectName #>IntegrationTest.Seeders.DefaultSeeder")]
+        public async Task <#= Model.Name #>DeleteTest()
+        {
+            var defaultPage = await Client.DeleteAsync("/<#= Model.Name #>/1"); 
+            defaultPage.EnsureSuccessStatusCode();
+
+        }
+
+
+
+
+    }
+}
+
+
+
+<#+
+public EA.Element Model { get; set; }
+public Info Info { get; set; }
+
+#>

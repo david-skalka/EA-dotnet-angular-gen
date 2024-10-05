@@ -1,0 +1,102 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="CaseExtensions" #>
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {FormGroup, FormControl} from '@angular/forms';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { <#=  string.Join(", ", Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive()).Select(x=>x.Type).Concat(new string[]{Model.Name, "Api"}))   #> } from '../../api';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
+@Component({
+  selector: 'app-new-page-edit',
+  standalone: true,
+  imports: [MatButtonModule, MatDialogModule,FormsModule, MatFormFieldModule, MatInputModule, MatGridListModule, ReactiveFormsModule, MatSlideToggleModule, MatSelectModule],
+  templateUrl: './<#= Model.Name.ToKebabCase()  #>-edit.component.html',
+  styleUrl: './<#= Model.Name.ToKebabCase()  #>-edit.component.scss'
+})
+export class <#= Model.Name  #>EditComponent implements OnInit{
+
+<# foreach (var attr in Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive())) { #>
+    <#= attr.Name.ToCamelCase().Pluralize() #>: <#= attr.Type #>[] = [];
+
+<# } #>
+
+  errors: any[] = [];
+
+  editForm = new FormGroup({
+<# 
+
+var defaultValues = new Dictionary<string, string>(){
+  {"int", "0"},
+  {"String", "\"\""},
+  {"Decimal", "0"},
+  {"DateTime", "Date.now()"},
+  {"Boolean", "false"}
+};
+
+foreach (EA.Attribute attr in Model.Attributes) { #>
+    <# if(defaultValues.ContainsKey(attr.Type)) { #>
+        <#= attr.Name.ToCamelCase() #>: new FormControl(<#= defaultValues[attr.Type] #>),
+    <# } else {  #>
+        <#= attr.Name.ToCamelCase() #>Id: new FormControl(0),
+    <# } #>
+<# } #>    
+  });
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: number | null, public dialogRef: MatDialogRef<<#= Model.Name #>EditComponent>, private api: Api<unknown>) { 
+
+  }
+
+
+  async ngOnInit(): Promise<void> {
+    
+<# foreach (var attr in Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive())) { #>
+    this.<#= attr.Name.ToCamelCase().Pluralize() #> = (await this.api.<#= attr.Name.ToCamelCase() #>.<#= attr.Name.ToCamelCase() #>List()).data;
+
+<# } #>
+    
+    if(this.data!==null){
+      const detail = await this.api.<#= Model.Name.ToCamelCase() #>.<#= Model.Name.ToCamelCase() #>Detail(this.data);
+      this.editForm.patchValue(detail.data);
+    }
+  }
+
+
+  async ok(){
+   try{
+    
+    if(this.data===null){
+      await this.api.<#= Model.Name.ToCamelCase() #>.<#= Model.Name.ToCamelCase() #>Create(this.editForm.value as <#= Model.Name #>);
+    } else {
+      await this.api.<#= Model.Name.ToCamelCase() #>.<#= Model.Name.ToCamelCase() #>Update(this.editForm.value as <#= Model.Name #>);
+    }
+    
+    this.dialogRef.close(this.editForm.value);
+   } catch(e: any){
+    if(e.status===400){
+      this.errors = Object.keys(e.error.errors).map(key=>e.error.errors[key][0]);
+    
+    }
+     
+   }
+    
+    
+  }
+
+}
+
+
+<#+
+
+public EA.Element Model { get; set; }
+
+#>
