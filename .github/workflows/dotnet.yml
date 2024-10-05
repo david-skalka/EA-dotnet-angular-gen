@@ -22,9 +22,12 @@ jobs:
       run: nuget restore
     - name: Build the solution
       run: msbuild EADotnetAngularGen.sln
-    - name: Run NUnit tests using vstest.console.exe
+    - name: Install NUnit Console Runner
       run: |
-        &vstest.console.exe "EADotnetAngularGenTests/bin/Debug/EADotnetAngularGenTests.dll"
+        nuget install NUnit.ConsoleRunner -Version 3.17.0 -OutputDirectory tools
+    - name: Run NUnit tests
+      run: |
+        & ".\tools\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" "EADotnetAngularGenTests\bin\Debug\EADotnetAngularGenTests.dll"
     - name: Generate a sample project
       shell: pwsh
       run: | 
