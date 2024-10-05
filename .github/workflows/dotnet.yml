@@ -21,7 +21,7 @@ jobs:
     - name: Restore NuGet packages
       run: nuget restore
     - name: Build the solution
-      run: msbuild MySolution.sln /p:Configuration=Release
+      run: msbuild EADotnetAngularGen.sln
     - name: Run NUnit tests using vstest.console.exe
       run: |
         "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\TestPlatform\vstest.console.exe" EADotnetAngularGenTests/bin/Debug/EADotnetAngularGenTests.dll
