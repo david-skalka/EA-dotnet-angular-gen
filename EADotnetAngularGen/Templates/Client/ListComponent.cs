@@ -19,7 +19,7 @@ namespace EADotnetAngularGen.Templates.Client
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+    #line 1 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class ListComponent : ListComponentBase
     {
@@ -29,14 +29,21 @@ namespace EADotnetAngularGen.Templates.Client
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("import { Component, OnInit, ViewChild } from \'@angular/core\';\r\nimport { Api, ");
+            this.Write("import { Component, OnInit, ViewChild } from \'@angular/core\';\r\nimport { ");
             
-            #line 8 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            #line 8 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
-            this.Write(@" } from '../../api';
+            this.Write(", ");
+            
+            #line 8 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write(@"Service } from '../api';
 import { CommonModule } from '@angular/common';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
@@ -49,21 +56,21 @@ import {
 } from '@angular/material/dialog';
 import { ");
             
-            #line 19 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            #line 19 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
             this.Write("EditComponent } from \'../");
             
-            #line 19 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            #line 19 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToKebabCase()));
             
             #line default
             #line hidden
             this.Write("-edit/");
             
-            #line 19 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            #line 19 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToKebabCase()));
             
             #line default
@@ -72,21 +79,21 @@ import { ");
                     "rue,\r\n  imports: [MatSlideToggleModule, MatTableModule, MatPaginatorModule, Comm" +
                     "onModule, MatButtonModule],\r\n  templateUrl: \'./");
             
-            #line 26 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            #line 26 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToKebabCase()));
             
             #line default
             #line hidden
             this.Write("-list.component.html\',\r\n  styleUrl: \'./");
             
-            #line 27 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            #line 27 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToKebabCase()));
             
             #line default
             #line hidden
             this.Write("-list.component.scss\'\r\n})\r\nexport class ");
             
-            #line 29 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            #line 29 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
@@ -95,46 +102,60 @@ import { ");
                     "inator  | null = null;\r\n  @ViewChild(MatSort) sort: MatSort | null = null;\r\n\r\n  " +
                     "dataSource: MatTableDataSource<");
             
-            #line 34 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            #line 34 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
             this.Write("> = new MatTableDataSource<");
             
-            #line 34 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            #line 34 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
             this.Write(">([]);\r\n  displayedColumns: string[] = [");
             
-            #line 35 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            #line 35 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(", ", Model.Attributes.Cast<EA.Attribute>().Select(x=> "'" + x.Name.ToCamelCase()  + "'" ))));
             
             #line default
             #line hidden
-            this.Write(", \'actions\'];\r\n  \r\n\r\n  constructor(private api: Api<unknown>, private matDialog: " +
-                    "MatDialog) { }\r\n\r\n  async ngOnInit(): Promise<void> {\r\n    await this.loadData()" +
-                    ";\r\n  }\r\n\r\n  async loadData() {\r\n    this.dataSource.data=(await this.api.");
+            this.Write(", \'actions\'];\r\n  \r\n\r\n  constructor(private ");
             
-            #line 45 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            #line 38 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
             
             #line default
             #line hidden
-            this.Write(".");
+            this.Write("Service: ");
             
-            #line 45 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            #line 38 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Service, private matDialog: MatDialog) { }\r\n\r\n  async ngOnInit(): Promise<void> {" +
+                    "\r\n    await this.loadData();\r\n  }\r\n\r\n  async loadData() {\r\n    this.dataSource.d" +
+                    "ata= await lastValueFrom(this.");
+            
+            #line 45 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
             
             #line default
             #line hidden
-            this.Write("List()).data; \r\n  }\r\n\r\n  async afterViewInit(): Promise<void> {\r\n    this.dataSou" +
-                    "rce.sort = this.sort;\r\n    this.dataSource.paginator = this.paginator;\r\n  }\r\n\r\n " +
-                    " async edit(id: number) {\r\n    await lastValueFrom( this.matDialog.open(");
+            this.Write("Service.");
             
-            #line 54 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            #line 45 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
+            
+            #line default
+            #line hidden
+            this.Write("Get()); \r\n  }\r\n\r\n  async afterViewInit(): Promise<void> {\r\n    this.dataSource.so" +
+                    "rt = this.sort;\r\n    this.dataSource.paginator = this.paginator;\r\n  }\r\n\r\n  async" +
+                    " edit(id: number) {\r\n    await lastValueFrom( this.matDialog.open(");
+            
+            #line 54 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
@@ -142,7 +163,7 @@ import { ");
             this.Write("EditComponent, { data: id }).afterClosed());\r\n    await this.loadData();\r\n  }\r\n\r\n" +
                     "  async add() {\r\n    await lastValueFrom( this.matDialog.open(");
             
-            #line 59 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+            #line 59 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
@@ -152,7 +173,7 @@ import { ");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 67 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
+        #line 67 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponent.tt"
 
 
 public EA.Element Model { get; set; }

@@ -9,16 +9,13 @@
 // ------------------------------------------------------------------------------
 namespace EADotnetAngularGen.Templates.Client
 {
-    using System.Linq;
-    using System.Text;
-    using System.Collections.Generic;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Client\AppConfig.tt"
+    #line 1 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\AppConfig.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class AppConfig : AppConfigBase
     {
@@ -33,10 +30,15 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { Api } from '../api';
+import { provideHttpClient } from '@angular/common/http';
+import { Configuration } from './api';
+
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(),  { provide: Api, useFactory: () => new Api({ baseUrl: '/api' }) }]
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(), provideHttpClient(), { provide: Configuration, useFactory: () => new Configuration({
+    basePath: '/api',
+  }) } ],
+  
 };
 ");
             return this.GenerationEnvironment.ToString();

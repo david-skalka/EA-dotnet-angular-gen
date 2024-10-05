@@ -1,16 +1,15 @@
-﻿using EA;
-using System.Linq;
+﻿using CaseExtensions;
+using CommandLine;
+using EA;
 using EADotnetAngularGen.Templates.Api;
-using CaseExtensions;
 using EADotnetAngularGen.Templates.Client;
-using System.Collections.Generic;
-using System.IO;
 using Medallion.Collections;
 using Newtonsoft.Json.Linq;
 using Sharprompt;
 using System;
-using CommandLine;
-using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace EADotnetAngularGen
 {
@@ -26,7 +25,7 @@ namespace EADotnetAngularGen
 
 
 
-        static void Generate(Element[] elements, string partFilter, Info info, string outputDir, bool overwrite)
+        static void Generate(Element[] elements, Info info, string outputDir, bool overwrite)
         {
 
             Element[] elementsSorted = elements.Select(x => x.Name).OrderTopologicallyBy(name => GetDependencies(elements, name)).Select(x => elements.Single(y => y.Name == x)).ToArray();
@@ -78,16 +77,11 @@ namespace EADotnetAngularGen
                             new T4GeneratorCommand(new ProxyConf() { }, Path.Combine(clientProjectPath, "proxy.conf.json"), true),
                             new T4GeneratorCommand(new AppConfig(), Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.config.ts"), true),
                             new ShellGeneratorCommand("npx", "@angular/cli@18.0.7 add @angular/material --skip-confirmation --defaults", clientProjectPath),
-                            new ShellGeneratorCommand("npm", "i swagger-typescript-api@13.0.12 -D", clientProjectPath),
-                            new JsonCommand(Path.Combine(clientProjectPath, "tsconfig.json"), (dynamic des) => {
-                                    ((JArray)des.compilerOptions.lib).Add("dom.iterable");
-                                    return des;
-                                }),
+                            new ShellGeneratorCommand("npm", "i @openapitools/openapi-generator-cli@2.13.13 -D", clientProjectPath),
                             new JsonCommand(Path.Combine(clientProjectPath, "package.json"), (dynamic des) => {
-                                    des.scripts["update-api"] = "npx --yes concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\"  \"cd..\\" + info.ProjectName + "\\ && dotnet run --environment Development --urls https://localhost:7064;http://localhost:5195\" \"npx --yes wait-on http-get://127.0.0.1:5195/swagger/v1/swagger.json && swagger-typescript-api -p http://127.0.0.1:5195/swagger/v1/swagger.json -o ./src -n api.ts\"";
+                                des.scripts["update-api"] = "npx --yes concurrently -k -s first -n \"API,CLI\" -c \"magenta,blue\"  \"cd..\\" + info.ProjectName + "\\ && dotnet run --environment Development --urls https://localhost:7064;http://localhost:5195\" \"npx --yes wait-on http-get://127.0.0.1:5195/swagger/v1/swagger.json && openapi-generator-cli generate -i http://127.0.0.1:5195/swagger/v1/swagger.json -g typescript-angular --additional-properties=withInterfaces=true -o ./src/app/api\"";
                                     return des;
                                 }),
-
 
                           }},
                           { "db-context", new IGeneratorCommand[]{ new T4GeneratorCommand(new DbContext() { Info=info, Entities = entities }, Path.Combine(outputDir, info.ProjectName, "ApplicationDbContext.cs"), overwrite) } } ,
@@ -115,12 +109,12 @@ namespace EADotnetAngularGen
                             new T4GeneratorCommand(new ListComponent() { Model = entity }, Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", entity.Name.ToKebabCase() + "-list", entity.Name.ToKebabCase() + "-list.component.ts"), overwrite),
                             new T4GeneratorCommand(new ListTemplate() { Model = entity }, Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", entity.Name.ToKebabCase() + "-list", entity.Name.ToKebabCase() + "-list.component.html"), overwrite),
                             new T4GeneratorCommand(new ListScss(), Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", entity.Name.ToKebabCase() + "-list", entity.Name.ToKebabCase() + "-list.component.scss"), overwrite),
-                            
+
             });
 
             }
 
-            var selectedParts = partFilter != null ? pipeline.Select(x => x.Key).Where(x=> Regex.IsMatch(x, partFilter)) : Prompt.MultiSelect("Select parts", pipeline.Select(x => x.Key));
+            var selectedParts = Prompt.MultiSelect("Select parts", pipeline.Select(x => x.Key));
 
 
 
@@ -146,27 +140,27 @@ namespace EADotnetAngularGen
                     {
 
                         var outputDir = Path.Combine(Directory.GetCurrentDirectory(), options.OutputDir);
-                        
-                        
+
+
 
 
                         Repository repository = new Repository();
 
-                        var file =  Path.GetFullPath(options.File);
+                        var file = Path.GetFullPath(options.File);
 
                         repository.OpenFile(file);
 
                         var elements = repository.Models.Cast<Package>().Single(x => x.Name == options.Package).Packages.Cast<Package>().Single(x => x.Name == options.SubPackage).Elements.Cast<Element>().ToArray();
                         try
                         {
-                            Generate(elements, options.PartFilter, new Info(options.ProjectName, options.SeedCount), outputDir, options.Overwrite);
+                            Generate(elements, new Info(options.ProjectName, options.SeedCount), outputDir, options.Overwrite);
                         }
                         finally
                         {
                             repository.CloseFile();
                             repository.Exit();
                         }
-                        
+
                         return 0;
                     }, error => 1);
 
@@ -198,9 +192,6 @@ namespace EADotnetAngularGen
 
         [Option('o', "overwrite", Default = false)]
         public bool Overwrite { get; set; } = false;
-
-        [Option('p', "part-filter", Default = null)]
-        public string PartFilter { get; set; } = null;
 
 
         [Option('s', "seed-count", Default = 10)]

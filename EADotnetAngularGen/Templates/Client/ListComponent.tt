@@ -5,7 +5,7 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="CaseExtensions" #>
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Api, <#= Model.Name  #> } from '../../api';
+import { <#= Model.Name  #>, <#= Model.Name  #>Service } from '../api';
 import { CommonModule } from '@angular/common';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
@@ -35,14 +35,14 @@ export class <#= Model.Name  #>ListComponent implements OnInit {
   displayedColumns: string[] = [<#= string.Join(", ", Model.Attributes.Cast<EA.Attribute>().Select(x=> "'" + x.Name.ToCamelCase()  + "'" ))  #>, 'actions'];
   
 
-  constructor(private api: Api<unknown>, private matDialog: MatDialog) { }
+  constructor(private <#= Model.Name.ToCamelCase()  #>Service: <#= Model.Name  #>Service, private matDialog: MatDialog) { }
 
   async ngOnInit(): Promise<void> {
     await this.loadData();
   }
 
   async loadData() {
-    this.dataSource.data=(await this.api.<#= Model.Name.ToCamelCase()  #>.<#= Model.Name.ToCamelCase() #>List()).data; 
+    this.dataSource.data= await lastValueFrom(this.<#= Model.Name.ToCamelCase() #>Service.<#= Model.Name.ToCamelCase() #>Get()); 
   }
 
   async afterViewInit(): Promise<void> {

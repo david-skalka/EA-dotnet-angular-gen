@@ -58,7 +58,7 @@ namespace EADotnetAngularGenTests
         [Test]
         public void EditTemplateTest()
         {
-            var content = new EditTemplate() { Model = diagram.Single(x => x.Name == "Comment"), }.TransformText();
+            var content = new EditTemplate() { Model = diagram.Single(x => x.Name == "Product"), }.TransformText();
             Console.WriteLine(content);
         }
 
@@ -67,7 +67,7 @@ namespace EADotnetAngularGenTests
         [Test]
         public void ListComponentTest()
         {
-            var content = new ListComponent() { Model = diagram.Single(x => x.Name == "Comment"), }.TransformText();
+            var content = new ListComponent() { Model = diagram.Single(x => x.Name == "Product"), }.TransformText();
             Console.WriteLine(content);
         }
 

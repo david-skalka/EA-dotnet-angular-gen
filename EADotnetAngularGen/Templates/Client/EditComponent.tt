@@ -13,9 +13,11 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {FormGroup, FormControl} from '@angular/forms';
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { <#=  string.Join(", ", Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive()).Select(x=>x.Type).Concat(new string[]{Model.Name, "Api"}))   #> } from '../../api';
+import { <#=  string.Join(", ", Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive()).Select(x=>x.Type).Concat(new string[]{Model.Name}).Select(x=> string.Format("{0}, {0}Service", x)))   #> } from '../api';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
+import { lastValueFrom } from 'rxjs';
+
 @Component({
   selector: 'app-new-page-edit',
   standalone: true,
@@ -52,7 +54,7 @@ foreach (EA.Attribute attr in Model.Attributes) { #>
 <# } #>    
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: number | null, public dialogRef: MatDialogRef<<#= Model.Name #>EditComponent>, private api: Api<unknown>) { 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: number | null, public dialogRef: MatDialogRef<<#= Model.Name #>EditComponent>, <#=  string.Join(", ", Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive()).Select(x=>x.Type).Concat(new string[]{Model.Name}).Select(x=> string.Format("private {0}Service: {1}Service", x.ToCamelCase(), x)))   #>) { 
 
   }
 
@@ -60,13 +62,12 @@ foreach (EA.Attribute attr in Model.Attributes) { #>
   async ngOnInit(): Promise<void> {
     
 <# foreach (var attr in Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive())) { #>
-    this.<#= attr.Name.ToCamelCase().Pluralize() #> = (await this.api.<#= attr.Name.ToCamelCase() #>.<#= attr.Name.ToCamelCase() #>List()).data;
-
+    this.<#= attr.Name.ToCamelCase().Pluralize() #> = await lastValueFrom(this.<#= attr.Name.ToCamelCase() #>Service.<#= attr.Name.ToCamelCase() #>Get());
 <# } #>
     
     if(this.data!==null){
-      const detail = await this.api.<#= Model.Name.ToCamelCase() #>.<#= Model.Name.ToCamelCase() #>Detail(this.data);
-      this.editForm.patchValue(detail.data);
+      const detail = await lastValueFrom(this.<#= Model.Name.ToCamelCase() #>Service.<#= Model.Name.ToCamelCase() #>IdGet(this.data));
+      this.editForm.patchValue(detail);
     }
   }
 
@@ -75,9 +76,9 @@ foreach (EA.Attribute attr in Model.Attributes) { #>
    try{
     
     if(this.data===null){
-      await this.api.<#= Model.Name.ToCamelCase() #>.<#= Model.Name.ToCamelCase() #>Create(this.editForm.value as <#= Model.Name #>);
+      await lastValueFrom(this.<#= Model.Name.ToCamelCase() #>Service.<#= Model.Name.ToCamelCase() #>Post(this.editForm.value as <#= Model.Name #>));
     } else {
-      await this.api.<#= Model.Name.ToCamelCase() #>.<#= Model.Name.ToCamelCase() #>Update(this.editForm.value as <#= Model.Name #>);
+      await lastValueFrom(this.<#= Model.Name.ToCamelCase() #>Service.<#= Model.Name.ToCamelCase() #>Put(this.editForm.value as <#= Model.Name #>));
     }
     
     this.dialogRef.close(this.editForm.value);
