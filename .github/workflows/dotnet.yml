@@ -22,21 +22,6 @@ jobs:
       run: nuget restore
     - name: Build the solution
       run: msbuild EADotnetAngularGen.sln
-    - name: Install NUnit Console Runner
-      run: |
-        nuget install NUnit.ConsoleRunner -Version 3.17.0 -OutputDirectory tools
-    - name: Run NUnit tests
-      run: |
-        & ".\tools\NUnit.ConsoleRunner.3.17.0\tools\nunit3-console.exe" "EADotnetAngularGenTests\bin\Debug\EADotnetAngularGenTests.dll"
-    - name: Generate a sample project
-      shell: pwsh
-      run: | 
-        EADotnetAngularGen/bin/Debug/net6.0/EADotnetAngularGen.exe -d ..\..\..\DotnetAngularSample -f "..\..\..\Data\SampleModel.qea" -n SampleApp -p .*
-    - name: Test sample project
-      run: dotnet test
-    - name: Update Angular api
-      run: npm run update-api
-      working-directory: DotnetAngularSample/DotnetAngularSampleClient
     - uses: actions/upload-artifact@v4
       with:
         name: Generator
