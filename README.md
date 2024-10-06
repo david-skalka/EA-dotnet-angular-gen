@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to Enterprise Architect Dotnet Angular Generator Add-in👋</h1>
+<h1 align="center">Welcome to Enterprise Architect Dotnet Angular Generator👋</h1>
 <p>
 
   <a href="#" target="_blank">
