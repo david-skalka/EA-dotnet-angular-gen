@@ -60,169 +60,100 @@ namespace EADotnetAngularGen.Templates.Client
             
             #line default
             #line hidden
-            this.Write("EditComponent\', () => {\r\n  \r\n   \r\n  const matDialogRefSpy = jasmine.createSpyObj<" +
-                    "MatDialogRef<");
+            this.Write("EditComponent\', () => {\r\n  \r\n   \r\n  var matDialogRefSpy : jasmine.SpyObj<MatDialo" +
+                    "gRef<");
             
             #line 17 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
-            this.Write("EditComponent>>([\'close\']);\r\n\r\n  const ");
+            this.Write("EditComponent>> | null = null;\r\n\r\n  var ");
             
             #line 19 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
             
             #line default
             #line hidden
-            this.Write("ServiceSpy = jasmine.createSpyObj<");
+            this.Write("ServiceSpy: jasmine.SpyObj<");
             
             #line 19 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
-            this.Write("ServiceInterface>([\'");
-            
-            #line 19 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
-            
-            #line default
-            #line hidden
-            this.Write("IdGet\', \'");
-            
-            #line 19 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
-            
-            #line default
-            #line hidden
-            this.Write("Put\', \'");
-            
-            #line 19 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
-            
-            #line default
-            #line hidden
-            this.Write("Post\']);\r\n\r\n");
+            this.Write("ServiceInterface> | null = null;\r\n\r\n");
             
             #line 21 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
  foreach (EA.Attribute attribute in Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive())) { 
             
             #line default
             #line hidden
-            this.Write("  const ");
+            this.Write("  var ");
             
             #line 22 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(attribute.Type.ToCamelCase()));
             
             #line default
             #line hidden
-            this.Write("ServiceSpy = jasmine.createSpyObj<");
+            this.Write("ServiceSpy: jasmine.SpyObj<");
             
             #line 22 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(attribute.Type));
             
             #line default
             #line hidden
-            this.Write("ServiceInterface>([\'");
-            
-            #line 22 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(attribute.Type.ToCamelCase()));
-            
-            #line default
-            #line hidden
-            this.Write("Get\']);\r\n\r\n");
+            this.Write("ServiceInterface> | null = null;\r\n\r\n");
             
             #line 24 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("  matDialogRefSpy.close.and.returnValue();\r\n  const ");
+            this.Write("\r\n\r\n  beforeEach(async () => {\r\n\r\n  matDialogRefSpy = jasmine.createSpyObj<MatDia" +
+                    "logRef<");
             
-            #line 26 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
-            
-            #line default
-            #line hidden
-            this.Write("  = ");
-            
-            #line 26 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(new ObjectInitializer( Model.Attributes.Cast<EA.Attribute>().Where(x=>x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()) ).ToText()));
-            
-            #line default
-            #line hidden
-            this.Write(" as ");
-            
-            #line 26 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            #line 29 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
-            this.Write("\r\n  ");
+            this.Write("EditComponent>>([\'close\']);\r\n\r\n  ");
             
-            #line 27 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            #line 31 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
             
             #line default
             #line hidden
-            this.Write("ServiceSpy.");
+            this.Write("ServiceSpy = jasmine.createSpyObj<");
             
-            #line 27 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            #line 31 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ServiceInterface>([\'");
+            
+            #line 31 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
             
             #line default
             #line hidden
-            this.Write("IdGet.and.returnValue(of(");
+            this.Write("IdGet\', \'");
             
-            #line 27 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            #line 31 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
             
             #line default
             #line hidden
-            this.Write(")  );\r\n  ");
+            this.Write("Put\', \'");
             
-            #line 28 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            #line 31 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
             
             #line default
             #line hidden
-            this.Write("ServiceSpy.");
-            
-            #line 28 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
-            
-            #line default
-            #line hidden
-            this.Write("Put.and.returnValue(of(");
-            
-            #line 28 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
-            
-            #line default
-            #line hidden
-            this.Write(")  );\r\n  ");
-            
-            #line 29 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
-            
-            #line default
-            #line hidden
-            this.Write("ServiceSpy.");
-            
-            #line 29 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
-            
-            #line default
-            #line hidden
-            this.Write("Post.and.returnValue(of(");
-            
-            #line 29 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
-            
-            #line default
-            #line hidden
-            this.Write(")  );\r\n  \r\n  \r\n\r\n");
+            this.Write("Post\']);\r\n\r\n");
             
             #line 33 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
  foreach (EA.Attribute attribute in Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive())) { 
@@ -236,66 +167,143 @@ namespace EADotnetAngularGen.Templates.Client
             
             #line default
             #line hidden
-            this.Write("ServiceSpy.");
-            
-            #line 34 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(attribute.Type.ToCamelCase()));
-            
-            #line default
-            #line hidden
-            this.Write("Get.and.returnValue(of([");
-            
-            #line 34 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(new ObjectInitializer( Entities.Single(e=>e.Name==attribute.Type).Attributes.Cast<EA.Attribute>().Where(x=>x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()) ).ToText()));
-            
-            #line default
-            #line hidden
-            this.Write(" as ");
+            this.Write("ServiceSpy = jasmine.createSpyObj<");
             
             #line 34 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(attribute.Type));
             
             #line default
             #line hidden
-            this.Write("])  );\r\n\r\n");
+            this.Write("ServiceInterface>([\'");
+            
+            #line 34 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(attribute.Type.ToCamelCase()));
+            
+            #line default
+            #line hidden
+            this.Write("Get\']);\r\n\r\n");
             
             #line 36 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("  \r\n\r\n\r\n  beforeEach(async () => {\r\n    await TestBed.configureTestingModule({\r\n " +
-                    "     imports: [BrowserAnimationsModule],\r\n      providers: [\r\n");
+            this.Write("  matDialogRefSpy.close.and.returnValue();\r\n  \r\n  const ");
+            
+            #line 39 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
+            
+            #line default
+            #line hidden
+            this.Write("  = ");
+            
+            #line 39 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(new ObjectInitializer( Model.Attributes.Cast<EA.Attribute>().Where(x=>x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()) ).ToText()));
+            
+            #line default
+            #line hidden
+            this.Write(" as ");
+            
+            #line 39 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n  \r\n  ");
+            
+            #line 41 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
+            
+            #line default
+            #line hidden
+            this.Write("ServiceSpy.");
+            
+            #line 41 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
+            
+            #line default
+            #line hidden
+            this.Write("IdGet.and.returnValue(of(");
+            
+            #line 41 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
+            
+            #line default
+            #line hidden
+            this.Write(")  );\r\n  ");
+            
+            #line 42 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
+            
+            #line default
+            #line hidden
+            this.Write("ServiceSpy.");
+            
+            #line 42 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
+            
+            #line default
+            #line hidden
+            this.Write("Put.and.returnValue(of(");
+            
+            #line 42 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
+            
+            #line default
+            #line hidden
+            this.Write(")  );\r\n  ");
             
             #line 43 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
+            
+            #line default
+            #line hidden
+            this.Write("ServiceSpy.");
+            
+            #line 43 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
+            
+            #line default
+            #line hidden
+            this.Write("Post.and.returnValue(of(");
+            
+            #line 43 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
+            
+            #line default
+            #line hidden
+            this.Write(")  );\r\n\r\n\r\n    await TestBed.configureTestingModule({\r\n      imports: [BrowserAni" +
+                    "mationsModule],\r\n      providers: [\r\n");
+            
+            #line 49 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
  foreach (var entity in Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive()).Select(x=>x.Type).Concat(new string[]{Model.Name})) { 
             
             #line default
             #line hidden
             this.Write("      { provide: ");
             
-            #line 44 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            #line 50 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entity));
             
             #line default
             #line hidden
             this.Write("Service, useValue: ");
             
-            #line 44 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            #line 50 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entity.ToCamelCase()));
             
             #line default
             #line hidden
             this.Write("ServiceSpy },\r\n");
             
-            #line 45 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            #line 51 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
  } 
             
             #line default
             #line hidden
             this.Write("      { provide: MatDialogRef<");
             
-            #line 46 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            #line 52 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
@@ -315,7 +323,7 @@ namespace EADotnetAngularGen.Templates.Client
     TestBed.overrideProvider(MAT_DIALOG_DATA, { useValue: 1 });
       const fixture = TestBed.createComponent(");
             
-            #line 59 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            #line 65 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
@@ -331,7 +339,7 @@ namespace EADotnetAngularGen.Templates.Client
     TestBed.overrideProvider(MAT_DIALOG_DATA, { useValue: 1 });
     const fixture = TestBed.createComponent(");
             
-            #line 68 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            #line 74 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
@@ -339,14 +347,14 @@ namespace EADotnetAngularGen.Templates.Client
             this.Write("EditComponent);\r\n    const component = fixture.componentInstance;\r\n    component." +
                     "ok();\r\n    expect(");
             
-            #line 71 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            #line 77 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
             
             #line default
             #line hidden
-            this.Write("ServiceSpy.");
+            this.Write("ServiceSpy!.");
             
-            #line 71 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            #line 77 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
             
             #line default
@@ -355,7 +363,7 @@ namespace EADotnetAngularGen.Templates.Client
                     "or new entity\', () => {\r\n    TestBed.overrideProvider(MAT_DIALOG_DATA, { useValu" +
                     "e: null });\r\n    const fixture = TestBed.createComponent(");
             
-            #line 77 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            #line 83 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
@@ -363,14 +371,14 @@ namespace EADotnetAngularGen.Templates.Client
             this.Write("EditComponent);\r\n    const component = fixture.componentInstance;\r\n    component." +
                     "ok();\r\n    expect(");
             
-            #line 80 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            #line 86 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
             
             #line default
             #line hidden
-            this.Write("ServiceSpy.");
+            this.Write("ServiceSpy!.");
             
-            #line 80 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+            #line 86 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
             
             #line default
@@ -379,7 +387,7 @@ namespace EADotnetAngularGen.Templates.Client
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 90 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
+        #line 96 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
 
 
 public EA.Element Model { get; set; }

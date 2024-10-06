@@ -14,29 +14,35 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 describe('<#= Model.Name #>EditComponent', () => {
   
    
-  const matDialogRefSpy = jasmine.createSpyObj<MatDialogRef<<#= Model.Name #>EditComponent>>(['close']);
+  var matDialogRefSpy : jasmine.SpyObj<MatDialogRef<<#= Model.Name #>EditComponent>> | null = null;
 
-  const <#= Model.Name.ToCamelCase() #>ServiceSpy = jasmine.createSpyObj<<#= Model.Name #>ServiceInterface>(['<#= Model.Name.ToCamelCase() #>IdGet', '<#= Model.Name.ToCamelCase() #>Put', '<#= Model.Name.ToCamelCase() #>Post']);
+  var <#= Model.Name.ToCamelCase() #>ServiceSpy: jasmine.SpyObj<<#= Model.Name #>ServiceInterface> | null = null;
 
 <# foreach (EA.Attribute attribute in Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive())) { #>
-  const <#= attribute.Type.ToCamelCase() #>ServiceSpy = jasmine.createSpyObj<<#= attribute.Type #>ServiceInterface>(['<#= attribute.Type.ToCamelCase() #>Get']);
+  var <#= attribute.Type.ToCamelCase() #>ServiceSpy: jasmine.SpyObj<<#= attribute.Type #>ServiceInterface> | null = null;
 
 <# } #>
-  matDialogRefSpy.close.and.returnValue();
-  const <#= Model.Name.ToCamelCase() #>  = <#= new ObjectInitializer( Model.Attributes.Cast<EA.Attribute>().Where(x=>x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()) ).ToText() #> as <#= Model.Name #>
-  <#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>IdGet.and.returnValue(of(<#= Model.Name.ToCamelCase() #>)  );
-  <#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>Put.and.returnValue(of(<#= Model.Name.ToCamelCase() #>)  );
-  <#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>Post.and.returnValue(of(<#= Model.Name.ToCamelCase() #>)  );
-  
-  
-
-<# foreach (EA.Attribute attribute in Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive())) { #>
-  <#= attribute.Type.ToCamelCase() #>ServiceSpy.<#= attribute.Type.ToCamelCase() #>Get.and.returnValue(of([<#= new ObjectInitializer( Entities.Single(e=>e.Name==attribute.Type).Attributes.Cast<EA.Attribute>().Where(x=>x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()) ).ToText() #> as <#= attribute.Type #>])  );
-
-<# } #>  
 
 
   beforeEach(async () => {
+
+  matDialogRefSpy = jasmine.createSpyObj<MatDialogRef<<#= Model.Name #>EditComponent>>(['close']);
+
+  <#= Model.Name.ToCamelCase() #>ServiceSpy = jasmine.createSpyObj<<#= Model.Name #>ServiceInterface>(['<#= Model.Name.ToCamelCase() #>IdGet', '<#= Model.Name.ToCamelCase() #>Put', '<#= Model.Name.ToCamelCase() #>Post']);
+
+<# foreach (EA.Attribute attribute in Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive())) { #>
+  <#= attribute.Type.ToCamelCase() #>ServiceSpy = jasmine.createSpyObj<<#= attribute.Type #>ServiceInterface>(['<#= attribute.Type.ToCamelCase() #>Get']);
+
+<# } #>
+  matDialogRefSpy.close.and.returnValue();
+  
+  const <#= Model.Name.ToCamelCase() #>  = <#= new ObjectInitializer( Model.Attributes.Cast<EA.Attribute>().Where(x=>x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()) ).ToText() #> as <#= Model.Name #>
+  
+  <#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>IdGet.and.returnValue(of(<#= Model.Name.ToCamelCase() #>)  );
+  <#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>Put.and.returnValue(of(<#= Model.Name.ToCamelCase() #>)  );
+  <#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>Post.and.returnValue(of(<#= Model.Name.ToCamelCase() #>)  );
+
+
     await TestBed.configureTestingModule({
       imports: [BrowserAnimationsModule],
       providers: [
@@ -68,7 +74,7 @@ describe('<#= Model.Name #>EditComponent', () => {
     const fixture = TestBed.createComponent(<#= Model.Name #>EditComponent);
     const component = fixture.componentInstance;
     component.ok();
-    expect(<#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>Put).toHaveBeenCalled();
+    expect(<#= Model.Name.ToCamelCase() #>ServiceSpy!.<#= Model.Name.ToCamelCase() #>Put).toHaveBeenCalled();
   });
 
   
@@ -77,7 +83,7 @@ describe('<#= Model.Name #>EditComponent', () => {
     const fixture = TestBed.createComponent(<#= Model.Name #>EditComponent);
     const component = fixture.componentInstance;
     component.ok();
-    expect(<#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>Post).toHaveBeenCalled();
+    expect(<#= Model.Name.ToCamelCase() #>ServiceSpy!.<#= Model.Name.ToCamelCase() #>Post).toHaveBeenCalled();
   });
 
 
