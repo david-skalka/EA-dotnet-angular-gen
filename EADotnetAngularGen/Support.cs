@@ -36,9 +36,7 @@ namespace EADotnetAngularGen
 
         public static bool IsTypePrimitive(this EA.Attribute attribute)
         {
-            var test = attribute.Name;
-
-            return attribute.Type == "int" || attribute.Type == "String" || attribute.Type == "Decimal" || attribute.Type == "DateTime"  || attribute.Type == "Boolean";
+            return new []{ "int", "String", "Decimal", "DateTime", "Boolean" }.Contains(attribute.Type);
         }
 
 

@@ -1,0 +1,96 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="CaseExtensions" #>
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { of } from 'rxjs';
+import { <#= Model.Name #>EditComponent } from './<#= Model.Name.ToCamelCase() #>-edit.component';
+import { <#=  string.Join(", ", Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive()).Select(x=>x.Type).Concat(new string[]{Model.Name}).Select(x=> string.Format("{0}, {0}Service, {0}ServiceInterface", x)))   #> } from '../api';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+describe('<#= Model.Name #>EditComponent', () => {
+  
+   
+  const matDialogRefSpy = jasmine.createSpyObj<MatDialogRef<<#= Model.Name #>EditComponent>>(['close']);
+
+  const <#= Model.Name.ToCamelCase() #>ServiceSpy = jasmine.createSpyObj<<#= Model.Name #>ServiceInterface>(['<#= Model.Name.ToCamelCase() #>IdGet', '<#= Model.Name.ToCamelCase() #>Put', '<#= Model.Name.ToCamelCase() #>Post']);
+
+<# foreach (EA.Attribute attribute in Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive())) { #>
+  const <#= attribute.Type.ToCamelCase() #>ServiceSpy = jasmine.createSpyObj<<#= attribute.Type #>ServiceInterface>(['<#= attribute.Type.ToCamelCase() #>Get']);
+
+<# } #>
+  matDialogRefSpy.close.and.returnValue();
+  const <#= Model.Name.ToCamelCase() #>  = <#= new ObjectInitializer( ElementAutoFaker.GenerateFromElement(Model) ).ToText() #> as <#= Model.Name #>
+  <#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>IdGet.and.returnValue(of(<#= Model.Name.ToCamelCase() #>)  );
+  <#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>Put.and.returnValue(of(<#= Model.Name.ToCamelCase() #>)  );
+  <#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>Post.and.returnValue(of(<#= Model.Name.ToCamelCase() #>)  );
+  
+  
+
+<# foreach (EA.Attribute attribute in Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive())) { #>
+  <#= attribute.Type.ToCamelCase() #>ServiceSpy.<#= attribute.Type.ToCamelCase() #>Get.and.returnValue(of([<#= new ObjectInitializer( ElementAutoFaker.GenerateFromElement(Entities.Single(e=>e.Name==attribute.Type) )).ToText() #> as <#= attribute.Type #>])  );
+
+<# } #>  
+
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [BrowserAnimationsModule],
+      providers: [
+<# foreach (var entity in Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive()).Select(x=>x.Type).Concat(new string[]{Model.Name})) { #>
+      { provide: <#= entity #>Service, useValue: <#= entity.ToCamelCase() #>ServiceSpy },
+<# } #>
+      { provide: MatDialogRef<<#= Model.Name #>EditComponent>, useValue: null },
+      { provide: MAT_DIALOG_DATA, useValue: null }
+      ],
+      declarations: [
+        
+      ]
+    })
+    .compileComponents();
+
+  });
+
+  it('Should init', () => {
+    TestBed.overrideProvider(MAT_DIALOG_DATA, { useValue: 1 });
+      const fixture = TestBed.createComponent(<#= Model.Name #>EditComponent);
+      const component = fixture.componentInstance;
+      component.ngOnInit();
+      expect(component).toBeTruthy();
+  });
+
+
+  it('Should call update service on save for existing entity', () => {
+    TestBed.overrideProvider(MAT_DIALOG_DATA, { useValue: 1 });
+    const fixture = TestBed.createComponent(<#= Model.Name #>EditComponent);
+    const component = fixture.componentInstance;
+    component.ok();
+    expect(<#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>Put).toHaveBeenCalled();
+  });
+
+  
+  it('Should call create service on save for new entity', () => {
+    TestBed.overrideProvider(MAT_DIALOG_DATA, { useValue: null });
+    const fixture = TestBed.createComponent(<#= Model.Name #>EditComponent);
+    const component = fixture.componentInstance;
+    component.ok();
+    expect(<#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>Post).toHaveBeenCalled();
+  });
+
+
+ 
+
+
+});
+
+
+<#+
+
+public EA.Element Model { get; set; }
+
+public ICollection<EA.Element> Entities { get; set; }
+
+#>

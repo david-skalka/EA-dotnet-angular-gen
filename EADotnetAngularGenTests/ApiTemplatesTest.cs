@@ -62,7 +62,7 @@ namespace EADotnetAngularGenTests
         [Test]
         public void EfModelTest()
         {
-            var content = new EfModel() { Model = diagram.Single(x => x.Name == "Product"), Info = info }.TransformText();
+            var content = new EfModel() { Model = diagram.Single(x => x.Name == "Comment"), Info = info }.TransformText();
             Console.WriteLine(content);
         }
 

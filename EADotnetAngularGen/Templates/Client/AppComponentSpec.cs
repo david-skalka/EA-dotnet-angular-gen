@@ -19,9 +19,9 @@ namespace EADotnetAngularGen.Templates.Client
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\AppConfig.tt"
+    #line 1 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\AppComponentSpec.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class AppConfig : AppConfigBase
+    public partial class AppComponentSpec : AppComponentSpecBase
     {
 #line hidden
         /// <summary>
@@ -29,24 +29,65 @@ namespace EADotnetAngularGen.Templates.Client
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+            this.Write(@"
+import { TestBed } from '@angular/core/testing';
+import { AppComponent } from './app.component';
 
-import { routes } from './app.routes';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
-import { Configuration } from './api';
+describe('AppComponent', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
+    }).compileComponents();
+  });
 
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
+  });
 
-export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(), provideHttpClient(), { provide: Configuration, useFactory: () => new Configuration({
-    basePath: '/api',
-  }) } ],
-  
-};
-");
+  it(`should have the '");
+            
+            #line 24 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\AppComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Info.ProjectName));
+            
+            #line default
+            #line hidden
+            this.Write("Client\' title`, () => {\r\n    const fixture = TestBed.createComponent(AppComponent" +
+                    ");\r\n    const app = fixture.componentInstance;\r\n    expect(app.title).toEqual(\'");
+            
+            #line 27 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\AppComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Info.ProjectName));
+            
+            #line default
+            #line hidden
+            this.Write(@"Client');
+  });
+
+  it('should render title', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('mat-toolbar > span')?.textContent).toContain('");
+            
+            #line 34 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\AppComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Info.ProjectName));
+            
+            #line default
+            #line hidden
+            this.Write("Client\');\r\n  });\r\n});\r\n\r\n\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
+        
+        #line 40 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\AppComponentSpec.tt"
+
+
+public Info Info { get; set; }
+
+
+        
+        #line default
+        #line hidden
     }
     
     #line default
@@ -56,7 +97,7 @@ export const appConfig: ApplicationConfig = {
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class AppConfigBase
+    public class AppComponentSpecBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

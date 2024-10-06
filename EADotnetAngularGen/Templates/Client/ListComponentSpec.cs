@@ -19,9 +19,9 @@ namespace EADotnetAngularGen.Templates.Client
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\AppConfig.tt"
+    #line 1 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class AppConfig : AppConfigBase
+    public partial class ListComponentSpec : ListComponentSpecBase
     {
 #line hidden
         /// <summary>
@@ -29,24 +29,204 @@ namespace EADotnetAngularGen.Templates.Client
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+            this.Write("import { ComponentFixture, TestBed } from \'@angular/core/testing\';\r\nimport { Brow" +
+                    "serAnimationsModule } from \'@angular/platform-browser/animations\';\r\nimport { of " +
+                    "} from \'rxjs\';\r\nimport { MatDialog } from \'@angular/material/dialog\';\r\nimport { " +
+                    "");
+            
+            #line 11 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ListComponent } from \'./");
+            
+            #line 11 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
+            
+            #line default
+            #line hidden
+            this.Write("-list.component\';\r\nimport { ");
+            
+            #line 12 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write(", ");
+            
+            #line 12 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Service, ");
+            
+            #line 12 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ServiceInterface } from \'../api\';\r\n\r\ndescribe(\'");
+            
+            #line 14 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ListComponent\', () => {\r\n  let component: ");
+            
+            #line 15 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ListComponent;\r\n  let fixture: ComponentFixture<");
+            
+            #line 16 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ListComponent>;\r\n\r\n  const ");
+            
+            #line 18 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
+            
+            #line default
+            #line hidden
+            this.Write("ServiceSpy = jasmine.createSpyObj<");
+            
+            #line 18 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ServiceInterface>([\'");
+            
+            #line 18 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
+            
+            #line default
+            #line hidden
+            this.Write("Get\']);\r\n\r\n  const ");
+            
+            #line 20 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase().Pluralize()));
+            
+            #line default
+            #line hidden
+            this.Write(" = [");
+            
+            #line 20 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(new ObjectInitializer( ElementAutoFaker.GenerateFromElement(Model) ).ToText()));
+            
+            #line default
+            #line hidden
+            this.Write(" as ");
+            
+            #line 20 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("];\r\n  ");
+            
+            #line 21 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
+            
+            #line default
+            #line hidden
+            this.Write("ServiceSpy.");
+            
+            #line 21 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
+            
+            #line default
+            #line hidden
+            this.Write("Get.and.returnValue(of(");
+            
+            #line 21 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase().Pluralize()));
+            
+            #line default
+            #line hidden
+            this.Write(@")  );
 
-import { routes } from './app.routes';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient } from '@angular/common/http';
-import { Configuration } from './api';
-
-
-export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(), provideHttpClient(), { provide: Configuration, useFactory: () => new Configuration({
-    basePath: '/api',
-  }) } ],
   
-};
-");
+  const matDialogSpy = jasmine.createSpyObj<MatDialog>(['open']);
+  matDialogSpy.open.and.returnValue({afterClosed : jasmine.createSpy('afterClosed').and.returnValue(of(null)) as unknown} as never);
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [BrowserAnimationsModule],
+      providers: [{ provide: ");
+            
+            #line 30 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Service, useValue: ");
+            
+            #line 30 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
+            
+            #line default
+            #line hidden
+            this.Write("ServiceSpy }, {provide: MatDialog, useValue: matDialogSpy}],\r\n      declarations:" +
+                    " [\r\n        \r\n      ]\r\n    })\r\n    .compileComponents();\r\n\r\n    fixture = TestBe" +
+                    "d.createComponent(");
+            
+            #line 37 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ListComponent);\r\n    component = fixture.componentInstance;\r\n\r\n\r\n\r\n  });\r\n\r\n  it(" +
+                    "\'should ngOnInit\', async () => {\r\n    await component.ngOnInit();\r\n    expect(co" +
+                    "mponent.dataSource.data).toEqual(");
+            
+            #line 46 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase().Pluralize()));
+            
+            #line default
+            #line hidden
+            this.Write(");\r\n  });\r\n\r\n\r\n\r\n  it(\'should edit\', async () => {\r\n    await component.edit(");
+            
+            #line 52 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase().Pluralize()));
+            
+            #line default
+            #line hidden
+            this.Write("[0].id);\r\n    expect(component.dataSource.data).toEqual(");
+            
+            #line 53 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase().Pluralize()));
+            
+            #line default
+            #line hidden
+            this.Write(");\r\n  });\r\n\r\n \r\n  it(\'should add\', async () => {\r\n    await component.add();\r\n   " +
+                    " expect(component.dataSource.data).toEqual(");
+            
+            #line 59 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase().Pluralize()));
+            
+            #line default
+            #line hidden
+            this.Write(");\r\n  });\r\n\r\n\r\n\r\n\r\n \r\n\r\n\r\n});\r\n\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
+        
+        #line 71 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
+
+
+public EA.Element Model { get; set; }
+
+
+        
+        #line default
+        #line hidden
     }
     
     #line default
@@ -56,7 +236,7 @@ export const appConfig: ApplicationConfig = {
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class AppConfigBase
+    public class ListComponentSpecBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

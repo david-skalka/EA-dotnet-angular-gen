@@ -122,6 +122,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Test.tt</DependentUpon>
     </Compile>
+    <Compile Include="Templates\Client\AppComponentSpec.cs">
+      <DependentUpon>AppComponentSpec.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Templates\Client\AppComponent.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -162,6 +167,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ListComponent.tt</DependentUpon>
     </Compile>
+    <Compile Include="Templates\Client\EditComponentSpec.cs">
+      <DependentUpon>EditComponentSpec.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Templates\Client\ListComponentSpec.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ListComponentSpec.tt</DependentUpon>
+    </Compile>
     <Compile Include="Templates\Client\ListScss.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -172,6 +187,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ListTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Include="Templates\Client\ObjectInitializer.cs" />
     <Compile Include="Templates\Client\ProxyConf.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -215,6 +231,10 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>Test.cs</LastGenOutput>
     </Content>
+    <Content Include="Templates\Client\AppComponentSpec.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>AppComponentSpec.cs</LastGenOutput>
+    </Content>
     <Content Include="Templates\Client\AppComponent.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>AppComponent.cs</LastGenOutput>
@@ -246,6 +266,14 @@
     <Content Include="Templates\Client\ListComponent.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ListComponent.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\Client\EditComponentSpec.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>EditComponentSpec.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\Client\ListComponentSpec.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ListComponentSpec.cs</LastGenOutput>
     </Content>
     <Content Include="Templates\Client\ListScss.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

@@ -4,6 +4,7 @@ using EA;
 using EADotnetAngularGen.Templates.Api;
 using EADotnetAngularGen.Templates.Client;
 using Medallion.Collections;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Sharprompt;
 using System;
@@ -64,6 +65,10 @@ namespace EADotnetAngularGen
                             new ShellGeneratorCommand("npx", "@angular/cli@18.0.7 new " + info.ProjectName + "Client --style scss --ssr false", outputDir),
                             new JsonCommand(Path.Combine(clientProjectPath, "angular.json"), (dynamic des) => {
                                 ((JObject)des).Add("cli", JToken.FromObject(new { analytics = false }));
+                                var testOptions = ((JObject)des)["projects"][info.ProjectName+"Client"]["architect"]["test"]["options"] as JObject;
+                                testOptions.Add("codeCoverage", true);
+                                testOptions.Add("codeCoverageExclude", new JArray(new []{ "src/app/api/**"}) );
+
                                 return des;
                             }),
                             new JsonCommand(Path.Combine(clientProjectPath, "angular.json"), (dynamic des) => {
@@ -86,7 +91,12 @@ namespace EADotnetAngularGen
                           }},
                           { "db-context", new IGeneratorCommand[]{ new T4GeneratorCommand(new DbContext() { Info=info, Entities = entities }, Path.Combine(outputDir, info.ProjectName, "ApplicationDbContext.cs"), overwrite) } } ,
                           { "seeder",  new IGeneratorCommand[]{new T4GeneratorCommand(new Seeder() { Entities = entities, Info=info}, Path.Combine(outputDir, info.ProjectName + "IntegrationTest", "Seeders", "DefaultSeeder.cs"), overwrite) }  },
-                          { "app-component",  new IGeneratorCommand[]{ new T4GeneratorCommand( new AppComponent() { }, Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.component.ts"), overwrite), new T4GeneratorCommand(new AppTemplate() { Entities = entities, Info = info }, Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.component.html"), overwrite) }  },
+                          { "app-component",  new IGeneratorCommand[]{ 
+                              new T4GeneratorCommand( new AppComponent() { Info=info }, Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.component.ts"), overwrite), 
+                              new T4GeneratorCommand(new AppTemplate() { Entities = entities, Info = info }, Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.component.html"), overwrite),
+                              new T4GeneratorCommand(new AppComponentSpec() { Info = info }, Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.component.spec.ts"), overwrite)
+                          } 
+                },
                           { "app-routes",  new IGeneratorCommand[]{ new T4GeneratorCommand( new AppRoutes() { Entities = entities }, Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.routes.ts"), overwrite)}  }
 
                          };
@@ -104,10 +114,12 @@ namespace EADotnetAngularGen
                             new MkdirGeneratorCommand(Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", entity.Name.ToKebabCase() + "-edit")),
                             new T4GeneratorCommand(new EditComponent() { Model = entity }, Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", entity.Name.ToKebabCase() + "-edit", entity.Name.ToKebabCase() + "-edit.component.ts"), overwrite),
                             new T4GeneratorCommand(new EditTemplate() { Model = entity }, Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", entity.Name.ToKebabCase() + "-edit", entity.Name.ToKebabCase() + "-edit.component.html"), overwrite),
+                            new T4GeneratorCommand(new EditComponentSpec() { Model = entity, Entities= entities }, Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", entity.Name.ToKebabCase() + "-edit", entity.Name.ToKebabCase() + "-edit.component.spec.ts"), overwrite),
                             new T4GeneratorCommand(new ListScss(), Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", entity.Name.ToKebabCase() + "-edit", entity.Name.ToKebabCase() + "-edit.component.scss"), overwrite),
                             new MkdirGeneratorCommand(Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", entity.Name.ToKebabCase() + "-list")),
                             new T4GeneratorCommand(new ListComponent() { Model = entity }, Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", entity.Name.ToKebabCase() + "-list", entity.Name.ToKebabCase() + "-list.component.ts"), overwrite),
                             new T4GeneratorCommand(new ListTemplate() { Model = entity }, Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", entity.Name.ToKebabCase() + "-list", entity.Name.ToKebabCase() + "-list.component.html"), overwrite),
+                            new T4GeneratorCommand(new ListComponentSpec() { Model = entity }, Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", entity.Name.ToKebabCase() + "-list", entity.Name.ToKebabCase() + "-list.component.spec.ts"), overwrite),
                             new T4GeneratorCommand(new ListScss(), Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", entity.Name.ToKebabCase() + "-list", entity.Name.ToKebabCase() + "-list.component.scss"), overwrite),
 
             });

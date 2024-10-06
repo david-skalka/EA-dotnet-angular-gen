@@ -63,11 +63,28 @@ namespace EADotnetAngularGenTests
         }
 
 
+        [Test]
+        public void EditComponentSpecTest()
+        {
+            var content = new EditComponentSpec() { Model = diagram.Single(x => x.Name == "Comment"), Entities = diagram }.TransformText();
+            Console.WriteLine(content);
+        }
+
+
 
         [Test]
         public void ListComponentTest()
         {
             var content = new ListComponent() { Model = diagram.Single(x => x.Name == "Product"), }.TransformText();
+            Console.WriteLine(content);
+        }
+
+
+
+        [Test]
+        public void ListComponentSpecTest()
+        {
+            var content = new ListComponentSpec() { Model = diagram.Single(x => x.Name == "Comment"), }.TransformText();
             Console.WriteLine(content);
         }
 
@@ -99,6 +116,14 @@ namespace EADotnetAngularGenTests
         {
 
             var content = new AppTemplate() { Entities = diagram, Info = new Info("Sample", 10) }.TransformText();
+            Console.WriteLine(content);
+        }
+
+        [Test]
+        public void AppComponentSpec()
+        {
+
+            var content = new AppComponentSpec() { Info = new Info("Sample", 10) }.TransformText();
             Console.WriteLine(content);
         }
 

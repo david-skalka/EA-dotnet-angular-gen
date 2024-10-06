@@ -9,6 +9,10 @@
 // ------------------------------------------------------------------------------
 namespace EADotnetAngularGen.Templates.Client
 {
+    using System.Linq;
+    using System.Text;
+    using System.Collections.Generic;
+    using CaseExtensions;
     using System;
     
     /// <summary>
@@ -39,11 +43,26 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'DotnetAngularSampleClient';
-}
-");
+  title = '");
+            
+            #line 21 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\AppComponent.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Info.ProjectName));
+            
+            #line default
+            #line hidden
+            this.Write("Client\';\r\n}\r\n\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
+        
+        #line 25 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\AppComponent.tt"
+
+
+public Info Info { get; set; }
+
+
+        
+        #line default
+        #line hidden
     }
     
     #line default

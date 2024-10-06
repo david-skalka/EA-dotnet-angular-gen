@@ -1,0 +1,75 @@
+﻿<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="CaseExtensions" #>
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { of } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { <#= Model.Name #>ListComponent } from './<#= Model.Name.ToCamelCase() #>-list.component';
+import { <#= Model.Name #>, <#= Model.Name #>Service, <#= Model.Name #>ServiceInterface } from '../api';
+
+describe('<#= Model.Name #>ListComponent', () => {
+  let component: <#= Model.Name #>ListComponent;
+  let fixture: ComponentFixture<<#= Model.Name #>ListComponent>;
+
+  const <#= Model.Name.ToCamelCase() #>ServiceSpy = jasmine.createSpyObj<<#= Model.Name #>ServiceInterface>(['<#= Model.Name.ToCamelCase() #>Get']);
+
+  const <#= Model.Name.ToCamelCase().Pluralize() #> = [<#= new ObjectInitializer( ElementAutoFaker.GenerateFromElement(Model) ).ToText() #> as <#= Model.Name #>];
+  <#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>Get.and.returnValue(of(<#= Model.Name.ToCamelCase().Pluralize() #>)  );
+
+  
+  const matDialogSpy = jasmine.createSpyObj<MatDialog>(['open']);
+  matDialogSpy.open.and.returnValue({afterClosed : jasmine.createSpy('afterClosed').and.returnValue(of(null)) as unknown} as never);
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [BrowserAnimationsModule],
+      providers: [{ provide: <#= Model.Name #>Service, useValue: <#= Model.Name.ToCamelCase() #>ServiceSpy }, {provide: MatDialog, useValue: matDialogSpy}],
+      declarations: [
+        
+      ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(<#= Model.Name #>ListComponent);
+    component = fixture.componentInstance;
+
+
+
+  });
+
+  it('should ngOnInit', async () => {
+    await component.ngOnInit();
+    expect(component.dataSource.data).toEqual(<#= Model.Name.ToCamelCase().Pluralize() #>);
+  });
+
+
+
+  it('should edit', async () => {
+    await component.edit(<#= Model.Name.ToCamelCase().Pluralize() #>[0].id);
+    expect(component.dataSource.data).toEqual(<#= Model.Name.ToCamelCase().Pluralize() #>);
+  });
+
+ 
+  it('should add', async () => {
+    await component.add();
+    expect(component.dataSource.data).toEqual(<#= Model.Name.ToCamelCase().Pluralize() #>);
+  });
+
+
+
+
+ 
+
+
+});
+
+
+<#+
+
+public EA.Element Model { get; set; }
+
+#>
