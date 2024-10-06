@@ -21,11 +21,10 @@ A source code generator for Enterprise Architect that creates a test-driven, dev
   <img src="Images/integration-test.png" width="400" >
 </a>
 
-### Angular development environment ( Storybook cases )
-<a href="Images/storybook.png">
-  <img src="Images/storybook.png" width="400" >
+### Generated application
+<a href="Images/app.png">
+  <img src="Images/app.png" width="400" >
 </a>
-
 
 
 
