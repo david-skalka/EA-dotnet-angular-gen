@@ -23,7 +23,7 @@ describe('<#= Model.Name #>EditComponent', () => {
 
 <# } #>
   matDialogRefSpy.close.and.returnValue();
-  const <#= Model.Name.ToCamelCase() #>  = <#= new ObjectInitializer( ElementAutoFaker.GenerateFromElement(Model) ).ToText() #> as <#= Model.Name #>
+  const <#= Model.Name.ToCamelCase() #>  = <#= new ObjectInitializer( Model.Attributes.Cast<EA.Attribute>().Where(x=>x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()) ).ToText() #> as <#= Model.Name #>
   <#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>IdGet.and.returnValue(of(<#= Model.Name.ToCamelCase() #>)  );
   <#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>Put.and.returnValue(of(<#= Model.Name.ToCamelCase() #>)  );
   <#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>Post.and.returnValue(of(<#= Model.Name.ToCamelCase() #>)  );
@@ -31,7 +31,7 @@ describe('<#= Model.Name #>EditComponent', () => {
   
 
 <# foreach (EA.Attribute attribute in Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive())) { #>
-  <#= attribute.Type.ToCamelCase() #>ServiceSpy.<#= attribute.Type.ToCamelCase() #>Get.and.returnValue(of([<#= new ObjectInitializer( ElementAutoFaker.GenerateFromElement(Entities.Single(e=>e.Name==attribute.Type) )).ToText() #> as <#= attribute.Type #>])  );
+  <#= attribute.Type.ToCamelCase() #>ServiceSpy.<#= attribute.Type.ToCamelCase() #>Get.and.returnValue(of([<#= new ObjectInitializer( Entities.Single(e=>e.Name==attribute.Type).Attributes.Cast<EA.Attribute>().Where(x=>x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()) ).ToText() #> as <#= attribute.Type #>])  );
 
 <# } #>  
 

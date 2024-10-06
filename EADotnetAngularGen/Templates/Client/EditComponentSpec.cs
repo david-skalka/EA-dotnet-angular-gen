@@ -148,7 +148,7 @@ namespace EADotnetAngularGen.Templates.Client
             this.Write("  = ");
             
             #line 26 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(new ObjectInitializer( ElementAutoFaker.GenerateFromElement(Model) ).ToText()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(new ObjectInitializer( Model.Attributes.Cast<EA.Attribute>().Where(x=>x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()) ).ToText()));
             
             #line default
             #line hidden
@@ -246,7 +246,7 @@ namespace EADotnetAngularGen.Templates.Client
             this.Write("Get.and.returnValue(of([");
             
             #line 34 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponentSpec.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(new ObjectInitializer( ElementAutoFaker.GenerateFromElement(Entities.Single(e=>e.Name==attribute.Type) )).ToText()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(new ObjectInitializer( Entities.Single(e=>e.Name==attribute.Type).Attributes.Cast<EA.Attribute>().Where(x=>x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()) ).ToText()));
             
             #line default
             #line hidden

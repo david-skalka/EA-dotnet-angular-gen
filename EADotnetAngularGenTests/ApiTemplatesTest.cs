@@ -102,7 +102,7 @@ namespace EADotnetAngularGenTests
         public void ObjectInitializer()
         {
             var model = diagram.Single(x => x.Name == "Comment");
-            var content = new ObjectInitializer(model.Name, ElementAutoFaker.GenerateFromElement(model)) { }.ToText();
+            var content = new ObjectInitializer(model.Name, model.Attributes.Cast<EA.Attribute>().Where(x => x.IsTypePrimitive()).ToDictionary(x => x.Name, x => x.GetFakeValue())) { }.ToText();
             Console.WriteLine(content);
         }
 

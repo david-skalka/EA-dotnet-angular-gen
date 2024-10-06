@@ -119,7 +119,7 @@ namespace EADotnetAngularGen.Templates.Client
             this.Write(" = [");
             
             #line 20 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\ListComponentSpec.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(new ObjectInitializer( ElementAutoFaker.GenerateFromElement(Model) ).ToText()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(new ObjectInitializer( Model.Attributes.Cast<EA.Attribute>().Where(x=>x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()) ).ToText()));
             
             #line default
             #line hidden

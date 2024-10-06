@@ -18,7 +18,7 @@ namespace EADotnetAngularGen.Templates.Api
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Seeder.tt"
+    #line 1 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Seeder.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class Seeder : SeederBase
     {
@@ -30,21 +30,21 @@ namespace EADotnetAngularGen.Templates.Api
         {
             this.Write("using Microsoft.EntityFrameworkCore;\r\nusing ");
             
-            #line 7 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Seeder.tt"
+            #line 7 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Seeder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Info.ProjectName));
             
             #line default
             #line hidden
             this.Write(";\r\nusing ");
             
-            #line 8 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Seeder.tt"
+            #line 8 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Seeder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Info.ProjectName));
             
             #line default
             #line hidden
             this.Write(".Models;\r\n\r\nnamespace ");
             
-            #line 10 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Seeder.tt"
+            #line 10 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Seeder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Info.ProjectName));
             
             #line default
@@ -52,62 +52,62 @@ namespace EADotnetAngularGen.Templates.Api
             this.Write("IntegrationTest.Seeders\r\n{\r\n\r\n    public class DefaultSeeder : ISeeder\r\n    {\r\n\r\n" +
                     "");
             
-            #line 16 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Seeder.tt"
+            #line 16 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Seeder.tt"
  foreach (var model in Entities) { 
             
             #line default
             #line hidden
             this.Write("  \r\n\r\n    virtual protected List<");
             
-            #line 19 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Seeder.tt"
+            #line 19 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Seeder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(model.Name));
             
             #line default
             #line hidden
             this.Write("> ");
             
-            #line 19 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Seeder.tt"
+            #line 19 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Seeder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(model.Name));
             
             #line default
             #line hidden
             this.Write("\r\n    {\r\n            get\r\n            {\r\n                return new List<");
             
-            #line 23 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Seeder.tt"
+            #line 23 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Seeder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(model.Name));
             
             #line default
             #line hidden
             this.Write(">{\r\n");
             
-            #line 24 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Seeder.tt"
+            #line 24 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Seeder.tt"
  for(var i=0; i< Info.SeedCount; i++) { 
             
             #line default
             #line hidden
             
-            #line 25 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Seeder.tt"
- var values= ElementAutoFaker.GenerateFromElement(model); model.Attributes.Cast<EA.Attribute>().Where(x=> !x.IsTypePrimitive()).ToList().ForEach(attr => values[attr.Name+"Id"]=1); values["Id"]= i+1; 
+            #line 25 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Seeder.tt"
+ var values= model.Attributes.Cast<EA.Attribute>().Where(x => x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()); model.Attributes.Cast<EA.Attribute>().Where(x=> !x.IsTypePrimitive()).ToList().ForEach(attr => values[attr.Name+"Id"]=1); values["Id"]= i+1; 
             
             #line default
             #line hidden
             this.Write("                ");
             
-            #line 26 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Seeder.tt"
+            #line 26 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Seeder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(new ObjectInitializer(model.Name,  values) .ToText()));
             
             #line default
             #line hidden
             this.Write(",\r\n");
             
-            #line 27 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Seeder.tt"
+            #line 27 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Seeder.tt"
  } 
             
             #line default
             #line hidden
             this.Write("            };\r\n        }\r\n    }\r\n\r\n\r\n");
             
-            #line 33 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Seeder.tt"
+            #line 33 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Seeder.tt"
  } 
             
             #line default
@@ -115,21 +115,21 @@ namespace EADotnetAngularGen.Templates.Api
             this.Write("\r\n\r\n    public virtual List<object> GetAll()\r\n    {\r\n        var retD = new List<" +
                     "object>();\r\n");
             
-            #line 39 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Seeder.tt"
+            #line 39 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Seeder.tt"
  foreach(var entity in Entities) { 
             
             #line default
             #line hidden
             this.Write("        retD.AddRange(");
             
-            #line 40 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Seeder.tt"
+            #line 40 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Seeder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(entity.Name));
             
             #line default
             #line hidden
             this.Write(");\r\n");
             
-            #line 41 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Seeder.tt"
+            #line 41 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Seeder.tt"
  } 
             
             #line default
@@ -175,7 +175,7 @@ namespace EADotnetAngularGen.Templates.Api
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 79 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Seeder.tt"
+        #line 79 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Seeder.tt"
 
 public EA.Element[] Entities { get; set; }
 

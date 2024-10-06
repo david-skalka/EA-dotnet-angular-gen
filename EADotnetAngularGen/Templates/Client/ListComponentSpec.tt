@@ -17,7 +17,7 @@ describe('<#= Model.Name #>ListComponent', () => {
 
   const <#= Model.Name.ToCamelCase() #>ServiceSpy = jasmine.createSpyObj<<#= Model.Name #>ServiceInterface>(['<#= Model.Name.ToCamelCase() #>Get']);
 
-  const <#= Model.Name.ToCamelCase().Pluralize() #> = [<#= new ObjectInitializer( ElementAutoFaker.GenerateFromElement(Model) ).ToText() #> as <#= Model.Name #>];
+  const <#= Model.Name.ToCamelCase().Pluralize() #> = [<#= new ObjectInitializer( Model.Attributes.Cast<EA.Attribute>().Where(x=>x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()) ).ToText() #> as <#= Model.Name #>];
   <#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>Get.and.returnValue(of(<#= Model.Name.ToCamelCase().Pluralize() #>)  );
 
   

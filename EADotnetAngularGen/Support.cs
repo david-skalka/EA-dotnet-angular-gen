@@ -1,4 +1,5 @@
-﻿using EA;
+﻿using AutoBogus;
+using EA;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,34 @@ namespace EADotnetAngularGen
             return attribute.TaggedValues.GetByName("Description").Value;
 
         }
+
+
+        public static object GetFakeValue(this EA.Attribute attribute)
+        {
+
+
+            switch (attribute.Type)
+            {
+                case "String":
+                    return AutoFaker.Generate<string>();
+                case "int":
+                    return AutoFaker.Generate<int>();
+                case "Boolean":
+                    return AutoFaker.Generate<bool>();
+                case "Decimal":
+                    return AutoFaker.Generate<decimal>();
+                default:
+                    throw new NotImplementedException();
+            }
+
+
+        }
+
     }
+
+
+
+    
 
 
 

@@ -89,7 +89,7 @@ namespace <#= Info.ProjectName #>IntegrationTest
         [Test, Property("Seeder", "<#= Info.ProjectName #>IntegrationTest.Seeders.DefaultSeeder")]
         public async Task <#= Model.Name #>CreateTest()
         {
-<# var createValues = ElementAutoFaker.GenerateFromElement(Model); Model.Attributes.Cast<EA.Attribute>().Where(x => !x.IsTypePrimitive()).ToList().ForEach(x=> createValues[x.Name + "Id"]=1); createValues.Remove("Id"); #>
+<# var createValues = Model.Attributes.Cast<EA.Attribute>().Where(x => x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()); Model.Attributes.Cast<EA.Attribute>().Where(x => !x.IsTypePrimitive()).ToList().ForEach(x=> createValues[x.Name + "Id"]=1); createValues.Remove("Id"); #>
             var arg = <#= new ObjectInitializer(Model.Name, createValues).ToText()  #>; 
             var defaultPage = await Client.PostAsJsonAsync("/<#= Model.Name #>", arg); 
             defaultPage.EnsureSuccessStatusCode();
@@ -99,7 +99,7 @@ namespace <#= Info.ProjectName #>IntegrationTest
         [Test, Property("Seeder", "<#= Info.ProjectName #>IntegrationTest.Seeders.DefaultSeeder")]
         public async Task <#= Model.Name #>UpdateTest()
         {
-<# var updateValues = ElementAutoFaker.GenerateFromElement(Model); Model.Attributes.Cast<EA.Attribute>().Where(x => !x.IsTypePrimitive()).ToList().ForEach(x=> updateValues[x.Name + "Id"]=1); updateValues["Id"]=1; #>
+<# var updateValues = Model.Attributes.Cast<EA.Attribute>().Where(x => x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()); Model.Attributes.Cast<EA.Attribute>().Where(x => !x.IsTypePrimitive()).ToList().ForEach(x=> updateValues[x.Name + "Id"]=1); updateValues["Id"]=1; #>
             var arg = <#=  new ObjectInitializer(Model.Name, updateValues ).ToText()  #>; 
             var defaultPage = await Client.PutAsJsonAsync("/<#= Model.Name #>", arg); 
             defaultPage.EnsureSuccessStatusCode();
