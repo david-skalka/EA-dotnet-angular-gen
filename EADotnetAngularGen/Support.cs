@@ -1,57 +1,46 @@
-﻿using AutoBogus;
-using EA;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using AutoBogus;
+using Attribute = EA.Attribute;
 
 namespace EADotnetAngularGen
 {
     public class Info
     {
-        public string ProjectName { get; set; }
-
-        public int SeedCount { get; set; }
-
         public Info(string projectName, int seedCount)
         {
             ProjectName = projectName;
             SeedCount = seedCount;
         }
 
+        public string ProjectName { get; set; }
+
+        public int SeedCount { get; set; }
     }
 
 
-
-    
     public static class AttributeExtensions
     {
-        public static bool IsNullable(this EA.Attribute attribute)
+        public static bool IsNullable(this Attribute attribute)
         {
             return attribute.LowerBound == "0";
-
         }
 
 
-
-        public static bool IsTypePrimitive(this EA.Attribute attribute)
+        public static bool IsTypePrimitive(this Attribute attribute)
         {
-            return new []{ "int", "String", "Decimal", "DateTime", "Boolean" }.Contains(attribute.Type);
+            return new[] { "int", "String", "Decimal", "DateTime", "Boolean" }.Contains(attribute.Type);
         }
 
 
-        public static string DescriptionTag(this EA.Attribute attribute)
+        public static string DescriptionTag(this Attribute attribute)
         {
             return attribute.TaggedValues.GetByName("Description").Value;
-
         }
 
 
-        public static object GetFakeValue(this EA.Attribute attribute)
+        public static object GetFakeValue(this Attribute attribute)
         {
-
-
             switch (attribute.Type)
             {
                 case "String":
@@ -65,16 +54,6 @@ namespace EADotnetAngularGen
                 default:
                     throw new NotImplementedException();
             }
-
-
         }
-
     }
-
-
-
-    
-
-
-
 }

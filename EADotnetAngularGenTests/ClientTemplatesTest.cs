@@ -1,38 +1,33 @@
-﻿using EA;
-using EADotnetAngularGen.Templates.Client;
-using EADotnetAngularGen;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.IO;
+using System.Linq;
+using EA;
+using EADotnetAngularGen;
+using EADotnetAngularGen.Templates.Client;
 using NUnit.Framework;
 
 namespace EADotnetAngularGenTests
 {
-    
     public class ClientTemplatesTest
     {
-
         private Element[] diagram;
 
         private Info info = new Info("Sample", 10);
 
-        EA.Repository repository = new EA.Repository();
+        private readonly Repository repository = new Repository();
 
 
         [OneTimeSetUp]
         public void Setup()
         {
-            
-            repository.OpenFile(Path.GetFullPath(Path.Combine(TestContext.CurrentContext.TestDirectory, @"..\..\..\Data\SampleModel.qea")));
+            repository.OpenFile(Path.GetFullPath(Path.Combine(TestContext.CurrentContext.TestDirectory,
+                @"..\..\..\Data\SampleModel.qea")));
 
-            diagram = repository.Models.Cast<EA.Package>().Single(x => x.Name == "Model").Packages.Cast<Package>().Single(x => x.Name == "MainPackage").Elements.Cast<Element>().ToArray();
+            diagram = repository.Models.Cast<Package>().Single(x => x.Name == "Model").Packages.Cast<Package>()
+                .Single(x => x.Name == "MainPackage").Elements.Cast<Element>().ToArray();
 
             info = new Info("TestProject", 10);
         }
-
 
 
         // one time tear down
@@ -44,21 +39,18 @@ namespace EADotnetAngularGenTests
         }
 
 
-
-
         [Test]
         public void EditComponentTest()
         {
-            var content = new EditComponent() { Model = diagram.Single(x => x.Name == "Product"), }.TransformText();
+            var content = new EditComponent { Model = diagram.Single(x => x.Name == "Product") }.TransformText();
             Console.WriteLine(content);
         }
-
 
 
         [Test]
         public void EditTemplateTest()
         {
-            var content = new EditTemplate() { Model = diagram.Single(x => x.Name == "Product"), }.TransformText();
+            var content = new EditTemplate { Model = diagram.Single(x => x.Name == "Product") }.TransformText();
             Console.WriteLine(content);
         }
 
@@ -66,47 +58,40 @@ namespace EADotnetAngularGenTests
         [Test]
         public void EditComponentSpecTest()
         {
-            var content = new EditComponentSpec() { Model = diagram.Single(x => x.Name == "Comment"), Entities = diagram }.TransformText();
+            var content = new EditComponentSpec { Model = diagram.Single(x => x.Name == "Comment"), Entities = diagram }
+                .TransformText();
             Console.WriteLine(content);
         }
-
 
 
         [Test]
         public void ListComponentTest()
         {
-            var content = new ListComponent() { Model = diagram.Single(x => x.Name == "Product"), }.TransformText();
+            var content = new ListComponent { Model = diagram.Single(x => x.Name == "Product") }.TransformText();
             Console.WriteLine(content);
         }
-
 
 
         [Test]
         public void ListComponentSpecTest()
         {
-            var content = new ListComponentSpec() { Model = diagram.Single(x => x.Name == "Comment"), }.TransformText();
+            var content = new ListComponentSpec { Model = diagram.Single(x => x.Name == "Comment") }.TransformText();
             Console.WriteLine(content);
         }
-
 
 
         [Test]
         public void ListTemplateTest()
         {
-            var content = new ListTemplate() { Model = diagram.Single(x => x.Name == "Comment"), }.TransformText();
+            var content = new ListTemplate { Model = diagram.Single(x => x.Name == "Comment") }.TransformText();
             Console.WriteLine(content);
         }
-
-
-
-
 
 
         [Test]
         public void AppRoutes()
         {
-
-            var content = new AppRoutes() { Entities = diagram }.TransformText();
+            var content = new AppRoutes { Entities = diagram }.TransformText();
             Console.WriteLine(content);
         }
 
@@ -114,22 +99,15 @@ namespace EADotnetAngularGenTests
         [Test]
         public void AppTemplate()
         {
-
-            var content = new AppTemplate() { Entities = diagram, Info = new Info("Sample", 10) }.TransformText();
+            var content = new AppTemplate { Entities = diagram, Info = new Info("Sample", 10) }.TransformText();
             Console.WriteLine(content);
         }
 
         [Test]
         public void AppComponentSpec()
         {
-
-            var content = new AppComponentSpec() { Info = new Info("Sample", 10) }.TransformText();
+            var content = new AppComponentSpec { Info = new Info("Sample", 10) }.TransformText();
             Console.WriteLine(content);
         }
-
-
-
-
     }
-
 }

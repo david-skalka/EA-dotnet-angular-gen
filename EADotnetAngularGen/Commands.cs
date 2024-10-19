@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Sharprompt;
 
 namespace EADotnetAngularGen
@@ -16,41 +14,16 @@ namespace EADotnetAngularGen
 
     public class T4GeneratorCommand : IGeneratorCommand
     {
-        public object template;
+        private readonly bool force;
 
         public string path;
-
-        private readonly bool force;
+        public object template;
 
         public T4GeneratorCommand(object template, string path, bool force)
         {
             this.template = template;
             this.path = path;
             this.force = force;
-        }
-
-        bool canWrite()
-        {
-            if (!File.Exists(path))
-            {
-                return true;
-            }
-
-            if (force)
-            {
-                return true;
-            }
-
-            var confirm = Prompt.Confirm("File " + path + " already exists. Do you want to overwrite it? (y/n)", defaultValue: false);
-
-
-            if (confirm)
-            {
-                return true;
-            }
-
-
-            return false;
         }
 
 
@@ -62,14 +35,29 @@ namespace EADotnetAngularGen
                 File.WriteAllText(path, result);
             }
         }
+
+        private bool canWrite()
+        {
+            if (!File.Exists(path)) return true;
+
+            if (force) return true;
+
+            var confirm = Prompt.Confirm("File " + path + " already exists. Do you want to overwrite it? (y/n)", false);
+
+
+            if (confirm) return true;
+
+
+            return false;
+        }
     }
 
 
     public class ShellGeneratorCommand : IGeneratorCommand
     {
-        private string filename;
-        private string args;
         private readonly string cwd;
+        private readonly string args;
+        private readonly string filename;
 
         public ShellGeneratorCommand(string filename, string args, string cwd)
         {
@@ -80,7 +68,7 @@ namespace EADotnetAngularGen
 
         public void Execute()
         {
-            var process = new System.Diagnostics.Process();
+            var process = new Process();
             process.StartInfo.FileName = filename;
             process.StartInfo.Arguments = args;
             process.StartInfo.WorkingDirectory = cwd;
@@ -88,52 +76,38 @@ namespace EADotnetAngularGen
             process.Start();
             process.WaitForExit();
 
-            if (process.ExitCode != 0)
-            {
-
-                throw new Exception("Error executing command " + filename + " " + args);
-            }
+            if (process.ExitCode != 0) throw new Exception("Error executing command " + filename + " " + args);
         }
     }
 
 
     public class RmGeneratorCommand : IGeneratorCommand
     {
-        private string searchPattern;
-
-        private string directoryPath;
+        private readonly string directoryPath;
+        private readonly string searchPattern;
 
         public RmGeneratorCommand(string directoryPath, string searchPattern)
         {
             this.directoryPath = directoryPath;
             this.searchPattern = searchPattern;
-
         }
 
         public void Execute()
         {
             var files = Directory.GetFiles(directoryPath, searchPattern);
 
-            foreach (var item in files)
-            {
-                File.Delete(item);
-            }
+            foreach (var item in files) File.Delete(item);
         }
     }
 
 
-
     public class RmDirGeneratorCommand : IGeneratorCommand
     {
-
-
-        private string directoryPath;
+        private readonly string directoryPath;
 
         public RmDirGeneratorCommand(string directoryPath)
         {
             this.directoryPath = directoryPath;
-
-
         }
 
         public void Execute()
@@ -145,7 +119,7 @@ namespace EADotnetAngularGen
 
     public class MkdirGeneratorCommand : IGeneratorCommand
     {
-        private string path;
+        private readonly string path;
 
         public MkdirGeneratorCommand(string path)
         {
@@ -159,13 +133,10 @@ namespace EADotnetAngularGen
     }
 
 
-
-
     public class JsonCommand : IGeneratorCommand
     {
-        private string path;
-
-        private Func<dynamic, dynamic> func;
+        private readonly Func<dynamic, dynamic> func;
+        private readonly string path;
 
         public JsonCommand(string path, Func<dynamic, dynamic> func)
         {
@@ -175,14 +146,11 @@ namespace EADotnetAngularGen
 
         public void Execute()
         {
-            var des = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(File.ReadAllText(path));
+            var des = JsonConvert.DeserializeObject<dynamic>(File.ReadAllText(path));
 
             var output = func(des);
 
-            File.WriteAllText(path, Newtonsoft.Json.JsonConvert.SerializeObject(output, Newtonsoft.Json.Formatting.Indented));
-
-
+            File.WriteAllText(path, JsonConvert.SerializeObject(output, Formatting.Indented));
         }
     }
-
 }
