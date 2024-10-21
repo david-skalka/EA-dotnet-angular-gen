@@ -14,35 +14,35 @@ namespace EADotnetAngularGen
 
     public class T4GeneratorCommand : IGeneratorCommand
     {
-        private readonly bool force;
+        private readonly bool _force;
 
-        public string path;
-        public object template;
+        private readonly string _path;
+        private readonly object _template;
 
         public T4GeneratorCommand(object template, string path, bool force)
         {
-            this.template = template;
-            this.path = path;
-            this.force = force;
+            this._template = template;
+            this._path = path;
+            this._force = force;
         }
 
 
         public void Execute()
         {
-            if (canWrite())
+            if (CanWrite())
             {
-                string result = ((dynamic)template).TransformText();
-                File.WriteAllText(path, result);
+                string result = ((dynamic)_template).TransformText();
+                File.WriteAllText(_path, result);
             }
         }
 
-        private bool canWrite()
+        private bool CanWrite()
         {
-            if (!File.Exists(path)) return true;
+            if (!File.Exists(_path)) return true;
 
-            if (force) return true;
+            if (_force) return true;
 
-            var confirm = Prompt.Confirm("File " + path + " already exists. Do you want to overwrite it? (y/n)", false);
+            var confirm = Prompt.Confirm("File " + _path + " already exists. Do you want to overwrite it? (y/n)", false);
 
 
             if (confirm) return true;
@@ -55,102 +55,68 @@ namespace EADotnetAngularGen
 
     public class ShellGeneratorCommand : IGeneratorCommand
     {
-        private readonly string cwd;
-        private readonly string args;
-        private readonly string filename;
+        private readonly string _cwd;
+        private readonly string _args;
+        private readonly string _filename;
 
         public ShellGeneratorCommand(string filename, string args, string cwd)
         {
-            this.filename = filename;
-            this.args = args;
-            this.cwd = cwd;
+            this._filename = filename;
+            this._args = args;
+            this._cwd = cwd;
         }
 
         public void Execute()
         {
             var process = new Process();
-            process.StartInfo.FileName = filename;
-            process.StartInfo.Arguments = args;
-            process.StartInfo.WorkingDirectory = cwd;
+            process.StartInfo.FileName = _filename;
+            process.StartInfo.Arguments = _args;
+            process.StartInfo.WorkingDirectory = _cwd;
             process.StartInfo.UseShellExecute = true;
             process.Start();
             process.WaitForExit();
 
-            if (process.ExitCode != 0) throw new Exception("Error executing command " + filename + " " + args);
+            if (process.ExitCode != 0) throw new Exception("Error executing command " + _filename + " " + _args);
         }
     }
 
 
-    public class RmGeneratorCommand : IGeneratorCommand
-    {
-        private readonly string directoryPath;
-        private readonly string searchPattern;
-
-        public RmGeneratorCommand(string directoryPath, string searchPattern)
-        {
-            this.directoryPath = directoryPath;
-            this.searchPattern = searchPattern;
-        }
-
-        public void Execute()
-        {
-            var files = Directory.GetFiles(directoryPath, searchPattern);
-
-            foreach (var item in files) File.Delete(item);
-        }
-    }
-
-
-    public class RmDirGeneratorCommand : IGeneratorCommand
-    {
-        private readonly string directoryPath;
-
-        public RmDirGeneratorCommand(string directoryPath)
-        {
-            this.directoryPath = directoryPath;
-        }
-
-        public void Execute()
-        {
-            Directory.Delete(directoryPath, true);
-        }
-    }
 
 
     public class MkdirGeneratorCommand : IGeneratorCommand
     {
-        private readonly string path;
+        private readonly string _path;
 
         public MkdirGeneratorCommand(string path)
         {
-            this.path = path;
+            this._path = path;
         }
 
         public void Execute()
         {
-            Directory.CreateDirectory(path);
+            Directory.CreateDirectory(_path);
         }
     }
 
 
     public class JsonCommand : IGeneratorCommand
     {
-        private readonly Func<dynamic, dynamic> func;
-        private readonly string path;
+        private readonly Func<dynamic, dynamic> _func;
+        private readonly string _path;
 
         public JsonCommand(string path, Func<dynamic, dynamic> func)
         {
-            this.path = path;
-            this.func = func;
+            this._path = path;
+            this._func = func;
         }
 
         public void Execute()
         {
-            var des = JsonConvert.DeserializeObject<dynamic>(File.ReadAllText(path));
+            var des = JsonConvert.DeserializeObject<dynamic>(File.ReadAllText(_path));
 
-            var output = func(des);
+            var output = _func(des);
 
-            File.WriteAllText(path, JsonConvert.SerializeObject(output, Formatting.Indented));
+            File.WriteAllText(_path, JsonConvert.SerializeObject(output, Formatting.Indented));
         }
     }
 }

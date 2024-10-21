@@ -12,30 +12,30 @@ namespace EADotnetAngularGenTests
 {
     public class ApiTemplatesTest
     {
-        private Element[] diagram;
+        private Element[] _diagram;
 
-        private Info info = new Info("Sample", 10);
+        private Info _info = new Info() { ProjectName= "Sample", SeedCount=10};
 
-        private readonly Repository repository = new Repository();
+        private readonly Repository _repository = new Repository();
 
         [OneTimeSetUp]
         public void Setup()
         {
-            repository.OpenFile(Path.GetFullPath(Path.Combine(TestContext.CurrentContext.TestDirectory,
+            _repository.OpenFile(Path.GetFullPath(Path.Combine(TestContext.CurrentContext.TestDirectory,
                 @"..\..\..\Data\SampleModel.qea")));
 
-            diagram = repository.Models.Cast<Package>().Single(x => x.Name == "Model").Packages.Cast<Package>()
+            _diagram = _repository.Models.Cast<Package>().Single(x => x.Name == "Model").Packages.Cast<Package>()
                 .Single(x => x.Name == "MainPackage").Elements.Cast<Element>().ToArray();
 
-            info = new Info("TestProject", 10);
+            _info = new Info() { ProjectName= "TestProject",  SeedCount=10 };
         }
 
 
         [OneTimeTearDown]
         public void TearDown()
         {
-            repository.CloseFile();
-            repository.Exit();
+            _repository.CloseFile();
+            _repository.Exit();
         }
 
 
@@ -43,7 +43,7 @@ namespace EADotnetAngularGenTests
         public void ControllerTest()
         {
             var content =
-                new Controller { Model = diagram.Single(x => x.Name == "Comment"), Info = info }.TransformText();
+                new Controller { Model = _diagram.Single(x => x.Name == "Comment"), Info = _info }.TransformText();
             Console.WriteLine(content);
         }
 
@@ -51,7 +51,7 @@ namespace EADotnetAngularGenTests
         [Test]
         public void CustomWebApplicationFactory()
         {
-            var content = new CustomWebApplicationFactory { Info = info }.TransformText();
+            var content = new CustomWebApplicationFactory { Info = _info }.TransformText();
             Console.WriteLine(content);
         }
 
@@ -59,28 +59,28 @@ namespace EADotnetAngularGenTests
         [Test]
         public void EfModelTest()
         {
-            var content = new EfModel { Model = diagram.Single(x => x.Name == "Comment"), Info = info }.TransformText();
+            var content = new EfModel { Model = _diagram.Single(x => x.Name == "Comment"), Info = _info }.TransformText();
             Console.WriteLine(content);
         }
 
         [Test]
-        public void ISeederTest()
+        public void SeederInterfaceTest()
         {
-            var content = new ISeeder { Info = info }.TransformText();
+            var content = new ISeeder { Info = _info }.TransformText();
             Console.WriteLine(content);
         }
 
         [Test]
         public void ProgramTest()
         {
-            var content = new Program { Info = info }.TransformText();
+            var content = new Program { Info = _info }.TransformText();
             Console.WriteLine(content);
         }
 
         [Test]
         public void SeederTest()
         {
-            var content = new Seeder { Entities = diagram, Info = info }.TransformText();
+            var content = new Seeder { Entities = _diagram, Info = _info }.TransformText();
             Console.WriteLine(content);
         }
 
@@ -88,7 +88,7 @@ namespace EADotnetAngularGenTests
         [Test]
         public void TestTest()
         {
-            var content = new Test { Model = diagram.Single(x => x.Name == "Comment"), Info = info }.TransformText();
+            var content = new Test { Model = _diagram.Single(x => x.Name == "Comment"), Info = _info }.TransformText();
             Console.WriteLine(content);
         }
 
@@ -96,7 +96,7 @@ namespace EADotnetAngularGenTests
         [Test]
         public void ObjectInitializer()
         {
-            var model = diagram.Single(x => x.Name == "Comment");
+            var model = _diagram.Single(x => x.Name == "Comment");
             var content = new ObjectInitializer(model.Name,
                 model.Attributes.Cast<Attribute>().Where(x => x.IsTypePrimitive())
                     .ToDictionary(x => x.Name, x => x.GetFakeValue())).ToText();

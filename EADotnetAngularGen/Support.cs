@@ -7,11 +7,6 @@ namespace EADotnetAngularGen
 {
     public class Info
     {
-        public Info(string projectName, int seedCount)
-        {
-            ProjectName = projectName;
-            SeedCount = seedCount;
-        }
 
         public string ProjectName { get; set; }
 

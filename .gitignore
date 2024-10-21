@@ -8,3 +8,4 @@ EADotnetAngularGenTests/obj
 *.code-workspace
 .vs
 packages
+inspect-report.txt

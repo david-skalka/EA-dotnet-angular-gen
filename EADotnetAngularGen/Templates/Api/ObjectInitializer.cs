@@ -17,20 +17,20 @@ namespace EADotnetAngularGen.Templates.Api
             };
 
 
-        public string name;
-        public Dictionary<string, object> values;
+        private readonly string _name;
+        private readonly Dictionary<string, object> _values;
 
 
         public ObjectInitializer(string name, Dictionary<string, object> values)
         {
-            this.name = name;
-            this.values = values;
+            this._name = name;
+            this._values = values;
         }
 
         public string ToText()
         {
-            return "new " + name + "() { " + string.Join(", ",
-                values.Select(x => x.Key + "= " + _valueFormaters[x.Value.GetType()](x.Value))) + " }";
+            return "new " + _name + "() { " + string.Join(", ",
+                _values.Select(x => x.Key + "= " + _valueFormaters[x.Value.GetType()](x.Value))) + " }";
         }
     }
 }

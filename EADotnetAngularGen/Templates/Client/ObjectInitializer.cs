@@ -18,18 +18,18 @@ namespace EADotnetAngularGen.Templates.Client
             };
 
 
-        public Dictionary<string, object> values;
+        private readonly Dictionary<string, object> _values;
 
 
         public ObjectInitializer(Dictionary<string, object> values)
         {
-            this.values = values;
+            this._values = values;
         }
 
         public string ToText()
         {
             return "{ " + string.Join(", ",
-                values.Select(x => x.Key.ToCamelCase() + ":  " + _valueFormaters[x.Value.GetType()](x.Value))) + " }";
+                _values.Select(x => x.Key.ToCamelCase() + ":  " + _valueFormaters[x.Value.GetType()](x.Value))) + " }";
         }
     }
 }

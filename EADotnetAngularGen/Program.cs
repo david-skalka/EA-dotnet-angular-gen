@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using CaseExtensions;
@@ -6,6 +7,7 @@ using CommandLine;
 using EA;
 using EADotnetAngularGen.Templates.Api;
 using EADotnetAngularGen.Templates.Client;
+using JetBrains.Annotations;
 using Medallion.Collections;
 using Newtonsoft.Json.Linq;
 using Sharprompt;
@@ -13,6 +15,7 @@ using Test = EADotnetAngularGen.Templates.Api.Test;
 
 namespace EADotnetAngularGen
 {
+    [UsedImplicitly(ImplicitUseTargetFlags.WithInheritors | ImplicitUseTargetFlags.Default)]
     internal class Program
     {
         private static IEnumerable<string> GetDependencies(IEnumerable<Element> diagram, string name)
@@ -85,11 +88,9 @@ namespace EADotnetAngularGen
                         new JsonCommand(Path.Combine(clientProjectPath, "angular.json"), des =>
                         {
                             ((JObject)des).Add("cli", JToken.FromObject(new { analytics = false }));
-                            var testOptions =
-                                ((JObject)des)["projects"][info.ProjectName + "Client"]["architect"]["test"]["options"]
-                                as JObject;
-                            testOptions.Add("codeCoverage", true);
-                            testOptions.Add("codeCoverageExclude", new JArray(new[] { "src/app/api/**" }));
+                            var testOptions = ((JObject)des)["projects"]?[info.ProjectName + "Client"]?["architect"]?["test"]?["options"] as JObject;
+                            testOptions?.Add("codeCoverage", true);
+                            testOptions?.Add("codeCoverageExclude", new JArray(new object[] { "src/app/api/**" }));
 
                             return des;
                         }),
@@ -101,7 +102,11 @@ namespace EADotnetAngularGen
                         }),
                         new JsonCommand(Path.Combine(clientProjectPath, "package.json"), des =>
                         {
-                            ((JObject)des)["scripts"]["start"] = "ng serve --ssl";
+
+                            (((JObject)des)?.GetValue("scripts") as JObject)?.GetValue("start")?.Replace(new JValue("ng serve --ssl"));
+
+                            
+
                             return des;
                         }),
                         new T4GeneratorCommand(new ProxyConf(), Path.Combine(clientProjectPath, "proxy.conf.json"),
@@ -167,7 +172,7 @@ namespace EADotnetAngularGen
 
 
             foreach (var entity in entities)
-                pipeline.Add(string.Format("entity-{0}", entity.Name.ToKebabCase()),
+                pipeline.Add($"entity-{entity.Name.ToKebabCase()}",
                     new IGeneratorCommand[]
                     {
                         new T4GeneratorCommand(new EfModel { Model = entity, Info = info },
@@ -241,7 +246,7 @@ namespace EADotnetAngularGen
                         .Cast<Package>().Single(x => x.Name == options.SubPackage).Elements.Cast<Element>().ToArray();
                     try
                     {
-                        Generate(elements, new Info(options.ProjectName, options.SeedCount), outputDir,
+                        Generate(elements, new Info() { ProjectName= options.ProjectName, SeedCount = options.SeedCount }, outputDir,
                             options.Overwrite);
                     }
                     finally
@@ -256,6 +261,8 @@ namespace EADotnetAngularGen
     }
 
 
+    [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global")]
+    [UsedImplicitly(ImplicitUseTargetFlags.WithInheritors | ImplicitUseTargetFlags.Default)]
     [Verb("run-pipeline")]
     internal class RunPipeline
     {

@@ -1,0 +1,1 @@
+jb inspectcode EADotnetAngularGen.sln -f=text -o=inspect-report.txt
