@@ -24,7 +24,7 @@ jobs:
       run: msbuild EADotnetAngularGen.sln
     - name: Generate Sample project
       run: EADotnetAngularGen.exe -d Output -f "..\..\..\Data\SampleModel.qea" -n SampleApp -p .*
-      working-directory: EADotnetAngularGen\bin\Debug
+      working-directory: EADotnetAngularGen/bin/Debug
     - uses: actions/upload-artifact@v4
       with:
         name: Generator
