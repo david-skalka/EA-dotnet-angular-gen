@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using CaseExtensions;
 using CommandLine;
 using EA;
@@ -27,7 +28,7 @@ namespace EADotnetAngularGen
         }
 
 
-        private static void Generate(Element[] elements, Info info, string outputDir, bool overwrite)
+        private static void Generate(Element[] elements, Info info, string outputDir, bool overwrite, string partsFilter)
         {
             var elementsSorted = elements.Select(x => x.Name)
                 .OrderTopologicallyBy(name => GetDependencies(elements, name))
@@ -221,7 +222,7 @@ namespace EADotnetAngularGen
                                 entity.Name.ToKebabCase() + "-list.component.scss"), overwrite)
                     });
 
-            var selectedParts = Prompt.MultiSelect("Select parts", pipeline.Select(x => x.Key));
+            var selectedParts = partsFilter!=null ? pipeline.Where(x=>Regex.Match(x.Key, partsFilter).Success).Select(x => x.Key) : Prompt.MultiSelect("Select parts", pipeline.Select(x => x.Key));
 
 
             foreach (var part in selectedParts) pipeline[part].ToList().ForEach(x => x.Execute());
@@ -247,7 +248,7 @@ namespace EADotnetAngularGen
                     try
                     {
                         Generate(elements, new Info() { ProjectName= options.ProjectName, SeedCount = options.SeedCount }, outputDir,
-                            options.Overwrite);
+                            options.Overwrite, options.PartsFilter);
                     }
                     finally
                     {
@@ -280,6 +281,9 @@ namespace EADotnetAngularGen
 
         [Option('s', "seed-count", Default = 10)]
         public int SeedCount { get; set; } = 10;
+
+        [Option('p', "parts")]
+        public string PartsFilter { get; set; } = null;
 
 
         [Option("package", Default = "Model")] public string Package { get; set; } = string.Empty;
