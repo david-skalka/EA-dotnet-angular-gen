@@ -30,3 +30,4 @@ jobs:
         name: Generator
         path: EADotnetAngularGen/bin/Debug/*
         
+        
