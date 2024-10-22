@@ -25,6 +25,11 @@ jobs:
     - name: Generate Sample project
       run: ./EADotnetAngularGen.exe -d "..\..\..\SampleProject" -f "..\..\..\Data\SampleModel.qea" -n SampleApp -p .* -o
       working-directory: EADotnetAngularGen\bin\Debug
+    - name: Test
+      run: |
+        dotnet tool install --global dotnet-coverage
+        dotnet-coverage collect dotnet test -f cobertura -o coverage.xml
+      working-directory: SampleProject
     - uses: actions/upload-artifact@v4
       with:
         name: Generator
