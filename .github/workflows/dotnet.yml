@@ -23,7 +23,7 @@ jobs:
     - name: Build the solution
       run: msbuild EADotnetAngularGen.sln
     - name: Generate Sample project
-      run: ./EADotnetAngularGen.exe -d "..\..\..\SampleProject" -f "..\..\..\Data\SampleModel.qea" -n SampleApp -p .* -o
+      run: ./EADotnetAngularGen.exe -d "..\..\..\SampleApp" -f "..\..\..\Data\SampleModel.qea" -n SampleApp -p .* -o
       working-directory: EADotnetAngularGen\bin\Debug
     - name: Run Dotnet Test
       run: |
