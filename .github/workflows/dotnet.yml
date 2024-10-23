@@ -29,13 +29,13 @@ jobs:
       run: |
         dotnet tool install --global dotnet-coverage
         dotnet-coverage collect dotnet test -f cobertura -o coverage.xml
-      working-directory: SampleProject
+      working-directory: SampleApp
     - name: Install node_modules
       run: npm i
-      working-directory: SampleProjectClient
+      working-directory: SampleApp/SampleAppClient
     - name: Run Angular tests
       run: npm run-script ng test -- --karma-config=karma-ci.conf.js
-      working-directory: SampleProjectClient
+      working-directory: SampleApp/SampleAppClient
     - uses: actions/upload-artifact@v4
       with:
         name: Generator
