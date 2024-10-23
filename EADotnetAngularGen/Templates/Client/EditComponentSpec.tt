@@ -43,7 +43,7 @@ describe('<#= Model.Name #>EditComponent', () => {
   <#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>Post.and.returnValue(of(<#= Model.Name.ToCamelCase() #>)  );
 
 <# foreach (EA.Attribute attribute in Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive())) { #>
-  <#= attribute.Type.ToCamelCase() #>ServiceSpy.<#= attribute.Type.ToCamelCase() #>Get.and.returnValue(of([] as <#= attribute.Type #>) );
+  <#= attribute.Type.ToCamelCase() #>ServiceSpy.<#= attribute.Type.ToCamelCase() #>Get.and.returnValue(of([] as <#= attribute.Type #>[]) );
 
 <# } #>
 
