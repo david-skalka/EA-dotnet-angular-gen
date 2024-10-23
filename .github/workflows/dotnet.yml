@@ -32,6 +32,7 @@ jobs:
       working-directory: SampleProject
     - name: Install node_modules
       run: npm i
+      working-directory: SampleProjectClient
     - name: Run Angular tests
       run: npm run-script ng test -- --karma-config=karma-ci.conf.js
       working-directory: SampleProjectClient
