@@ -45,7 +45,7 @@ namespace EADotnetAngularGen
                 case "Boolean":
                     return AutoFaker.Generate<bool>();
                 case "Decimal":
-                    return AutoFaker.Generate<decimal>();
+                    return Math.Round(AutoFaker.Generate<decimal>(), 6);
                 default:
                     throw new NotImplementedException();
             }

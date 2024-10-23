@@ -126,7 +126,14 @@ namespace EADotnetAngularGen
                                 info.ProjectName +
                                 "\\ && dotnet run --environment Development --urls https://localhost:7064;http://localhost:5195\" \"npx --yes wait-on http-get://127.0.0.1:5195/swagger/v1/swagger.json && openapi-generator-cli generate -i http://127.0.0.1:5195/swagger/v1/swagger.json -g typescript-angular --additional-properties=withInterfaces=true -o ./src/app/api\"";
                             return des;
-                        })
+                        }
+                        ),
+                        new ShellGeneratorCommand("npx",
+                            "@angular/cli@18.0.7 add @angular-eslint/schematics --skip-confirmation",
+                            clientProjectPath),
+                        new T4GeneratorCommand(new EsLintConfig(), Path.Combine(clientProjectPath, "eslint.config.js"), true)
+
+
                     }
                 },
                 {
@@ -231,6 +238,9 @@ namespace EADotnetAngularGen
 
         private static int Main(string[] args)
         {
+
+          
+
             return Parser.Default.ParseArguments<RunPipeline>(args)
                 .MapResult(options =>
                 {

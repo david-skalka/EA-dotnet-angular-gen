@@ -17,6 +17,7 @@ import { <#=  string.Join(", ", Model.Attributes.Cast<EA.Attribute>().Where(x=>!
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { lastValueFrom } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-new-page-edit',
@@ -32,7 +33,7 @@ export class <#= Model.Name  #>EditComponent implements OnInit{
 
 <# } #>
 
-  errors: any[] = [];
+  errors: string[] = [];
 
   editForm = new FormGroup({
 <# 
@@ -82,9 +83,10 @@ foreach (EA.Attribute attr in Model.Attributes) { #>
     }
     
     this.dialogRef.close(this.editForm.value);
-   } catch(e: any){
+   } catch(error: unknown){
+    const e = error as HttpErrorResponse;
     if(e.status===400){
-      this.errors = Object.keys(e.error.errors).map(key=>e.error.errors[key][0]);
+      this.errors = Object.keys(e.error.errors).map(key=>e.error.errors[key][0] as string);
     
     }
      
