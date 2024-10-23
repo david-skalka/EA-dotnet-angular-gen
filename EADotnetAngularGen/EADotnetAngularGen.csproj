@@ -164,6 +164,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EditTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Include="Templates\Client\KarmaCiConf.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KarmaCiConf.tt</DependentUpon>
+    </Compile>
     <Compile Include="Templates\Client\ListComponent.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -264,6 +269,10 @@
     <Content Include="Templates\Client\EditTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>EditTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="Templates\Client\KarmaCiConf.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>KarmaCiConf.cs</LastGenOutput>
     </Content>
     <Content Include="Templates\Client\ListComponent.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>

@@ -110,8 +110,8 @@ namespace EADotnetAngularGen
 
                             return des;
                         }),
-                        new T4GeneratorCommand(new ProxyConf(), Path.Combine(clientProjectPath, "proxy.conf.json"),
-                            true),
+                        new T4GeneratorCommand(new ProxyConf(), Path.Combine(clientProjectPath, "proxy.conf.json"), true),
+                        new T4GeneratorCommand(new KarmaCiConf(), Path.Combine(clientProjectPath, "karma-ci.conf.js"), true),
                         new T4GeneratorCommand(new AppConfig(),
                             Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.config.ts"), true),
                         new ShellGeneratorCommand("npx",

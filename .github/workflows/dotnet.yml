@@ -25,11 +25,16 @@ jobs:
     - name: Generate Sample project
       run: ./EADotnetAngularGen.exe -d "..\..\..\SampleProject" -f "..\..\..\Data\SampleModel.qea" -n SampleApp -p .* -o
       working-directory: EADotnetAngularGen\bin\Debug
-    - name: Test
+    - name: Run Dotnet Test
       run: |
         dotnet tool install --global dotnet-coverage
         dotnet-coverage collect dotnet test -f cobertura -o coverage.xml
       working-directory: SampleProject
+    - name: Install node_modules
+      run: npm i
+    - name: Run Angular tests
+      run: npm run-script ng test -- --karma-config=karma-ci.conf.js
+      working-directory: SampleProjectClient
     - uses: actions/upload-artifact@v4
       with:
         name: Generator
