@@ -31,7 +31,6 @@ jobs:
       working-directory: SampleApp
       shell: cmd
     - name: Check inspect-report.txt
-      shell: pwsh
       run: |
         $lineCount = (Get-Content inspect-report.txt).Count
         if ($lineCount -gt 1) {
