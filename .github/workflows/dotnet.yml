@@ -29,6 +29,7 @@ jobs:
       run: |
         jb inspectcode -f=text -o=inspect-report.txt SampleApp.sln
       working-directory: SampleApp
+      shell: bash
     - name: Run Dotnet Test
       run: |
         dotnet tool install --global dotnet-coverage
