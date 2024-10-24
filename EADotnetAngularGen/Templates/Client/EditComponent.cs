@@ -49,6 +49,7 @@ import { ");
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { lastValueFrom } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-new-page-edit',
@@ -56,56 +57,56 @@ import { lastValueFrom } from 'rxjs';
   imports: [MatButtonModule, MatDialogModule,FormsModule, MatFormFieldModule, MatInputModule, MatGridListModule, ReactiveFormsModule, MatSlideToggleModule, MatSelectModule],
   templateUrl: './");
             
-            #line 25 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 26 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToKebabCase()));
             
             #line default
             #line hidden
             this.Write("-edit.component.html\',\r\n  styleUrl: \'./");
             
-            #line 26 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 27 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToKebabCase()));
             
             #line default
             #line hidden
             this.Write("-edit.component.scss\'\r\n})\r\nexport class ");
             
-            #line 28 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 29 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
             this.Write("EditComponent implements OnInit{\r\n\r\n");
             
-            #line 30 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 31 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
  foreach (var attr in Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive())) { 
             
             #line default
             #line hidden
             this.Write("    ");
             
-            #line 31 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 32 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(attr.Name.ToCamelCase().Pluralize()));
             
             #line default
             #line hidden
             this.Write(": ");
             
-            #line 31 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 32 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(attr.Type));
             
             #line default
             #line hidden
             this.Write("[] = [];\r\n\r\n");
             
-            #line 33 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 34 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\r\n  errors: any[] = [];\r\n\r\n  editForm = new FormGroup({\r\n");
+            this.Write("\r\n  errors: string[] = [];\r\n\r\n  editForm = new FormGroup({\r\n");
             
-            #line 38 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 39 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
  
 
 var defaultValues = new Dictionary<string, string>(){
@@ -122,48 +123,48 @@ foreach (EA.Attribute attr in Model.Attributes) {
             #line hidden
             this.Write("    ");
             
-            #line 49 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 50 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
  if(defaultValues.ContainsKey(attr.Type)) { 
             
             #line default
             #line hidden
             this.Write("        ");
             
-            #line 50 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 51 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(attr.Name.ToCamelCase()));
             
             #line default
             #line hidden
             this.Write(": new FormControl(");
             
-            #line 50 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 51 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(defaultValues[attr.Type]));
             
             #line default
             #line hidden
             this.Write("),\r\n    ");
             
-            #line 51 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 52 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
  } else {  
             
             #line default
             #line hidden
             this.Write("        ");
             
-            #line 52 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 53 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(attr.Name.ToCamelCase()));
             
             #line default
             #line hidden
             this.Write("Id: new FormControl(0),\r\n    ");
             
-            #line 53 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 54 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
  } 
             
             #line default
             #line hidden
             
-            #line 54 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 55 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
  } 
             
             #line default
@@ -171,63 +172,63 @@ foreach (EA.Attribute attr in Model.Attributes) {
             this.Write("    \r\n  });\r\n\r\n  constructor(@Inject(MAT_DIALOG_DATA) public data: number | null," +
                     " public dialogRef: MatDialogRef<");
             
-            #line 57 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 58 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
             this.Write("EditComponent>, ");
             
-            #line 57 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 58 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(", ", Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive()).Select(x=>x.Type).Concat(new string[]{Model.Name}).Select(x=> string.Format("@Inject({1}Service) private {0}Service: {1}ServiceInterface", x.ToCamelCase(), x)))));
             
             #line default
             #line hidden
             this.Write(") { \r\n\r\n  }\r\n\r\n\r\n  async ngOnInit(): Promise<void> {\r\n    \r\n");
             
-            #line 64 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 65 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
  foreach (var attr in Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive())) { 
             
             #line default
             #line hidden
             this.Write("    this.");
             
-            #line 65 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 66 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(attr.Name.ToCamelCase().Pluralize()));
             
             #line default
             #line hidden
             this.Write(" = await lastValueFrom(this.");
             
-            #line 65 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 66 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(attr.Name.ToCamelCase()));
             
             #line default
             #line hidden
             this.Write("Service.");
             
-            #line 65 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 66 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(attr.Name.ToCamelCase()));
             
             #line default
             #line hidden
             this.Write("Get());\r\n");
             
-            #line 66 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 67 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
  } 
             
             #line default
             #line hidden
             this.Write("    \r\n    if(this.data!==null){\r\n      const detail = await lastValueFrom(this.");
             
-            #line 69 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 70 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
             
             #line default
             #line hidden
             this.Write("Service.");
             
-            #line 69 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 70 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
             
             #line default
@@ -236,54 +237,70 @@ foreach (EA.Attribute attr in Model.Attributes) {
                     "ync ok(){\r\n   try{\r\n    \r\n    if(this.data===null){\r\n      await lastValueFrom(t" +
                     "his.");
             
-            #line 79 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 80 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
             
             #line default
             #line hidden
             this.Write("Service.");
             
-            #line 79 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 80 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
             
             #line default
             #line hidden
             this.Write("Post(this.editForm.value as ");
             
-            #line 79 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 80 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
             this.Write("));\r\n    } else {\r\n      await lastValueFrom(this.");
             
-            #line 81 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 82 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
             
             #line default
             #line hidden
             this.Write("Service.");
             
-            #line 81 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 82 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name.ToCamelCase()));
             
             #line default
             #line hidden
             this.Write("Put(this.editForm.value as ");
             
-            #line 81 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+            #line 82 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
-            this.Write("));\r\n    }\r\n    \r\n    this.dialogRef.close(this.editForm.value);\r\n   } catch(e: a" +
-                    "ny){\r\n    if(e.status===400){\r\n      this.errors = Object.keys(e.error.errors).m" +
-                    "ap(key=>e.error.errors[key][0]);\r\n    \r\n    }\r\n     \r\n   }\r\n    \r\n    \r\n  }\r\n\r\n}" +
-                    "\r\n\r\n\r\n");
+            this.Write(@"));
+    }
+    
+    this.dialogRef.close(this.editForm.value);
+   } catch(error: unknown){
+    const e = error as HttpErrorResponse;
+    if(e.status===400){
+      this.errors = Object.keys(e.error.errors).map(key=>e.error.errors[key][0] as string);
+    
+    }
+     
+   }
+    
+    
+  }
+
+}
+
+
+");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 99 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
+        #line 101 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Client\EditComponent.tt"
 
 
 public EA.Element Model { get; set; }

@@ -36,6 +36,9 @@ jobs:
     - name: Update api
       run: npm run update-api
       working-directory: SampleApp/SampleAppClient
+    - name: Run ng lint
+      run: npm run-script ng lint
+      working-directory: SampleApp/SampleAppClient
     - name: Run Angular tests
       run: npm run-script ng test -- --karma-config=karma-ci.conf.js
       working-directory: SampleApp/SampleAppClient

@@ -15,7 +15,7 @@ describe('<#= Model.Name #>ListComponent', () => {
   let component: <#= Model.Name #>ListComponent;
   let fixture: ComponentFixture<<#= Model.Name #>ListComponent>;
 
-  var <#= Model.Name.ToCamelCase() #>ServiceSpy: jasmine.SpyObj<<#= Model.Name #>ServiceInterface> | null = null;
+  let <#= Model.Name.ToCamelCase() #>ServiceSpy: jasmine.SpyObj<<#= Model.Name #>ServiceInterface> | null = null;
 
   const <#= Model.Name.ToCamelCase().Pluralize() #> = [<#= new ObjectInitializer( Model.Attributes.Cast<EA.Attribute>().Where(x=>x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()) ).ToText() #> as <#= Model.Name #>];
 

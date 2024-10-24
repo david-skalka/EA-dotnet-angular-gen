@@ -4,7 +4,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="CaseExtensions" #>
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
 import { <#= Model.Name #>EditComponent } from './<#= Model.Name.ToCamelCase() #>-edit.component';
@@ -14,12 +14,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 describe('<#= Model.Name #>EditComponent', () => {
   
    
-  var matDialogRefSpy : jasmine.SpyObj<MatDialogRef<<#= Model.Name #>EditComponent>> | null = null;
+  let matDialogRefSpy : jasmine.SpyObj<MatDialogRef<<#= Model.Name #>EditComponent>> | null = null;
 
-  var <#= Model.Name.ToCamelCase() #>ServiceSpy: jasmine.SpyObj<<#= Model.Name #>ServiceInterface> | null = null;
+  let <#= Model.Name.ToCamelCase() #>ServiceSpy: jasmine.SpyObj<<#= Model.Name #>ServiceInterface> | null = null;
 
 <# foreach (EA.Attribute attribute in Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive())) { #>
-  var <#= attribute.Type.ToCamelCase() #>ServiceSpy: jasmine.SpyObj<<#= attribute.Type #>ServiceInterface> | null = null;
+  let <#= attribute.Type.ToCamelCase() #>ServiceSpy: jasmine.SpyObj<<#= attribute.Type #>ServiceInterface> | null = null;
 
 <# } #>
 
@@ -43,7 +43,7 @@ describe('<#= Model.Name #>EditComponent', () => {
   <#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>Post.and.returnValue(of(<#= Model.Name.ToCamelCase() #>)  );
 
 <# foreach (EA.Attribute attribute in Model.Attributes.Cast<EA.Attribute>().Where(x=>!x.IsTypePrimitive())) { #>
-  <#= attribute.Type.ToCamelCase() #>ServiceSpy.<#= attribute.Type.ToCamelCase() #>Get.and.returnValue(of([]) );
+  <#= attribute.Type.ToCamelCase() #>ServiceSpy.<#= attribute.Type.ToCamelCase() #>Get.and.returnValue(of([] as <#= attribute.Type #>[]) );
 
 <# } #>
 
