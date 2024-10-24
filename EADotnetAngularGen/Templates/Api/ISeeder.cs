@@ -18,7 +18,7 @@ namespace EADotnetAngularGen.Templates.Api
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\ISeeder.tt"
+    #line 1 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\ISeeder.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class ISeeder : ISeederBase
     {
@@ -28,24 +28,16 @@ namespace EADotnetAngularGen.Templates.Api
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using Microsoft.EntityFrameworkCore;\r\nusing Microsoft.Extensions.DependencyInject" +
-                    "ion;\r\nusing NUnit.Framework.Interfaces;\r\nusing ");
+            this.Write("using ");
             
-            #line 9 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\ISeeder.tt"
+            #line 6 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\ISeeder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Info.ProjectName));
             
             #line default
             #line hidden
-            this.Write(";\r\nusing ");
+            this.Write(";\r\n\r\nnamespace ");
             
-            #line 10 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\ISeeder.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Info.ProjectName));
-            
-            #line default
-            #line hidden
-            this.Write(".Models;\r\n\r\nnamespace ");
-            
-            #line 12 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\ISeeder.tt"
+            #line 8 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\ISeeder.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Info.ProjectName));
             
             #line default
@@ -56,7 +48,7 @@ namespace EADotnetAngularGen.Templates.Api
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 22 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\ISeeder.tt"
+        #line 18 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\ISeeder.tt"
 
 
 public Info Info { get; set; }

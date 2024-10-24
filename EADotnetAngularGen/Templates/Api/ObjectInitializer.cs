@@ -19,17 +19,18 @@ namespace EADotnetAngularGen.Templates.Api
 
         private readonly string _name;
         private readonly Dictionary<string, object> _values;
+        private readonly bool _simple;
 
-
-        public ObjectInitializer(string name, Dictionary<string, object> values)
+        public ObjectInitializer(string name, Dictionary<string, object> values, bool simple)
         {
             this._name = name;
             this._values = values;
+            this._simple = simple;
         }
 
         public string ToText()
         {
-            return "new " + _name + "() { " + string.Join(", ",
+            return  (_simple ? "new()" : string.Format("new {0}()", _name)) + " { " + string.Join(", ",
                 _values.Select(x => x.Key + "= " + _valueFormaters[x.Value.GetType()](x.Value))) + " }";
         }
     }

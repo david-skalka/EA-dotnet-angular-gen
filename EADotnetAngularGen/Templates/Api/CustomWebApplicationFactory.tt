@@ -33,7 +33,7 @@ namespace <#= Info.ProjectName #>IntegrationTest
                 services.Remove(dbConnectionDescriptor!);
 
                 // Create open SqliteConnection so EF won't automatically close it.
-                services.AddSingleton<DbConnection>(container =>
+                services.AddSingleton<DbConnection>(_ =>
                 {
                     var connection = new SqliteConnection("DataSource=:memory:");
                     connection.Open();

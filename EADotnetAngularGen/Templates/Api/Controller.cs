@@ -18,7 +18,7 @@ namespace EADotnetAngularGen.Templates.Api
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
+    #line 1 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Controller.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class Controller : ControllerBase
     {
@@ -30,14 +30,14 @@ namespace EADotnetAngularGen.Templates.Api
         {
             this.Write("\r\nusing Microsoft.AspNetCore.Mvc;\r\nusing ");
             
-            #line 8 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
+            #line 8 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Info.ProjectName));
             
             #line default
             #line hidden
             this.Write(".Models;\r\nnamespace ");
             
-            #line 9 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
+            #line 9 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Info.ProjectName));
             
             #line default
@@ -45,45 +45,29 @@ namespace EADotnetAngularGen.Templates.Api
             this.Write(".Controllers\r\n{\r\n    [ApiController]\r\n    [Route(\"[controller]\")]\r\n    public cla" +
                     "ss ");
             
-            #line 13 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
-            
-            #line default
-            #line hidden
-            this.Write("Controller : ControllerBase\r\n    {\r\n\r\n        private readonly ILogger<");
-            
-            #line 16 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
-            
-            #line default
-            #line hidden
-            this.Write("Controller> _logger;\r\n        private readonly ApplicationDbContext _applicationD" +
-                    "bContext;\r\n\r\n        public ");
-            
-            #line 19 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
+            #line 13 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
             this.Write("Controller(ILogger<");
             
-            #line 19 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
+            #line 13 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
-            this.Write("Controller> logger, ApplicationDbContext applicationDbContext)\r\n        {\r\n      " +
-                    "      _logger = logger;\r\n            _applicationDbContext = applicationDbContex" +
-                    "t;\r\n        }\r\n\r\n        [HttpGet]\r\n        public IEnumerable<");
+            this.Write("Controller> logger, ApplicationDbContext applicationDbContext) : ControllerBase\r\n" +
+                    "    {\r\n\r\n        [HttpGet]\r\n        public IEnumerable<");
             
-            #line 26 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
+            #line 17 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
-            this.Write("> Get()\r\n        {\r\n             return _applicationDbContext.");
+            this.Write("> Get()\r\n        {\r\n             return applicationDbContext.");
             
-            #line 28 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
+            #line 19 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
@@ -91,14 +75,14 @@ namespace EADotnetAngularGen.Templates.Api
             this.Write(".ToList();\r\n        }\r\n\r\n        [HttpGet(\"{id:int}\")]\r\n        public ActionResu" +
                     "lt<");
             
-            #line 32 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
+            #line 23 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
-            this.Write("> Get(int id)\r\n        {\r\n            return _applicationDbContext.");
+            this.Write("> Get(int id)\r\n        {\r\n            return applicationDbContext.");
             
-            #line 34 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
+            #line 25 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
@@ -106,69 +90,69 @@ namespace EADotnetAngularGen.Templates.Api
             this.Write(".Single(x=>x.Id==id);\r\n        }\r\n\r\n        [HttpPost]\r\n        public ActionResu" +
                     "lt<");
             
-            #line 38 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
+            #line 29 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
             this.Write("> Create(");
             
-            #line 38 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
+            #line 29 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
-            this.Write(" data)\r\n        {\r\n            _applicationDbContext.");
+            this.Write(" data)\r\n        {\r\n            applicationDbContext.");
             
-            #line 40 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
+            #line 31 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
-            this.Write(".Add(data);\r\n            _applicationDbContext.SaveChanges();\r\n            return" +
-                    " data;\r\n        }\r\n\r\n        [HttpPut]\r\n        public ActionResult<");
+            this.Write(".Add(data);\r\n            applicationDbContext.SaveChanges();\r\n            return " +
+                    "data;\r\n        }\r\n\r\n        [HttpPut]\r\n        public ActionResult<");
             
-            #line 46 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
+            #line 37 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
             this.Write("> Update(");
             
-            #line 46 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
+            #line 37 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
-            this.Write(" data)\r\n        {\r\n            _applicationDbContext.");
+            this.Write(" data)\r\n        {\r\n            applicationDbContext.");
             
-            #line 48 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
+            #line 39 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
-            this.Write(".Update(data);\r\n            _applicationDbContext.SaveChanges();\r\n            ret" +
-                    "urn data;\r\n        }\r\n\r\n        [HttpDelete(\"{id:int}\")]\r\n        public ActionR" +
-                    "esult Delete(int id)\r\n        {\r\n            _applicationDbContext.");
+            this.Write(".Update(data);\r\n            applicationDbContext.SaveChanges();\r\n            retu" +
+                    "rn data;\r\n        }\r\n\r\n        [HttpDelete(\"{id:int}\")]\r\n        public ActionRe" +
+                    "sult Delete(int id)\r\n        {\r\n            applicationDbContext.");
             
-            #line 56 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
+            #line 47 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
-            this.Write(".Remove(_applicationDbContext.");
+            this.Write(".Remove(applicationDbContext.");
             
-            #line 56 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
+            #line 47 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Controller.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
-            this.Write(".Single(x=>x.Id==id));\r\n            _applicationDbContext.SaveChanges();\r\n       " +
-                    "     return Ok();\r\n        }\r\n\r\n\r\n    }\r\n}\r\n\r\n\r\n");
+            this.Write(".Single(x=>x.Id==id));\r\n            applicationDbContext.SaveChanges();\r\n        " +
+                    "    return Ok();\r\n        }\r\n\r\n\r\n    }\r\n}\r\n\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 66 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Controller.tt"
+        #line 57 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Controller.tt"
 
 public EA.Element Model { get; set; }
 public Info Info { get; set; }

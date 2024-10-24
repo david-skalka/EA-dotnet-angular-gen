@@ -14,13 +14,13 @@ namespace <#= Info.ProjectName #>IntegrationTest
     public class <#= Model.Name #>Test
     {
 
-        protected readonly CustomWebApplicationFactory<Program> Factory = new();
+        private readonly CustomWebApplicationFactory<Program> _factory = new();
 
-        protected readonly HttpClient Client;
+        private readonly HttpClient _client;
         
         public <#= Model.Name #>Test()
         {
-            Client = Factory.CreateClient(
+            _client = _factory.CreateClient(
                 new WebApplicationFactoryClientOptions { AllowAutoRedirect = false }
             );
         
@@ -35,7 +35,7 @@ namespace <#= Info.ProjectName #>IntegrationTest
                 ISeeder seederInstance = (ISeeder)Activator.CreateInstance(Type.GetType(seeder)!)!;
                 seederInstance
                     .Seed(
-                        Factory
+                        _factory
                             .Services.CreateScope()
                             .ServiceProvider.GetRequiredService<ApplicationDbContext>()
                     );
@@ -54,7 +54,7 @@ namespace <#= Info.ProjectName #>IntegrationTest
                 ISeeder seederInstance = (ISeeder)Activator.CreateInstance(Type.GetType(seeder)!)!;
                 seederInstance
                     .Clear(
-                            Factory
+                            _factory
                                 .Services.CreateScope()
                                 .ServiceProvider.GetRequiredService<ApplicationDbContext>()
                         );
@@ -65,15 +65,15 @@ namespace <#= Info.ProjectName #>IntegrationTest
         [OneTimeTearDown]
         public void Dispose()
         {
-            Client.Dispose();
-            Factory.Dispose();
+            _client.Dispose();
+            _factory.Dispose();
         }
 
 
         [Test, Property("Seeder", "<#= Info.ProjectName #>IntegrationTest.Seeders.DefaultSeeder")]
         public async Task <#= Model.Name #>GetTest()
         {
-            var defaultPage = await Client.GetAsync("/<#= Model.Name #>");
+            var defaultPage = await _client.GetAsync("/<#= Model.Name #>");
             defaultPage.EnsureSuccessStatusCode();
         }
 
@@ -82,7 +82,7 @@ namespace <#= Info.ProjectName #>IntegrationTest
         [Test, Property("Seeder", "<#= Info.ProjectName #>IntegrationTest.Seeders.DefaultSeeder")]
         public async Task <#= Model.Name #>GetOneTest()
         {
-            var defaultPage = await Client.GetAsync("/<#= Model.Name #>/1");
+            var defaultPage = await _client.GetAsync("/<#= Model.Name #>/1");
             defaultPage.EnsureSuccessStatusCode();
         }
 
@@ -90,8 +90,8 @@ namespace <#= Info.ProjectName #>IntegrationTest
         public async Task <#= Model.Name #>CreateTest()
         {
 <# var createValues = Model.Attributes.Cast<EA.Attribute>().Where(x => x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()); Model.Attributes.Cast<EA.Attribute>().Where(x => !x.IsTypePrimitive()).ToList().ForEach(x=> createValues[x.Name + "Id"]=1); createValues.Remove("Id"); #>
-            var arg = <#= new ObjectInitializer(Model.Name, createValues).ToText()  #>; 
-            var defaultPage = await Client.PostAsJsonAsync("/<#= Model.Name #>", arg); 
+            var arg = <#= new ObjectInitializer(Model.Name, createValues, false).ToText()  #>; 
+            var defaultPage = await _client.PostAsJsonAsync("/<#= Model.Name #>", arg); 
             defaultPage.EnsureSuccessStatusCode();
         }
 
@@ -100,8 +100,8 @@ namespace <#= Info.ProjectName #>IntegrationTest
         public async Task <#= Model.Name #>UpdateTest()
         {
 <# var updateValues = Model.Attributes.Cast<EA.Attribute>().Where(x => x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()); Model.Attributes.Cast<EA.Attribute>().Where(x => !x.IsTypePrimitive()).ToList().ForEach(x=> updateValues[x.Name + "Id"]=1); updateValues["Id"]=1; #>
-            var arg = <#=  new ObjectInitializer(Model.Name, updateValues ).ToText()  #>; 
-            var defaultPage = await Client.PutAsJsonAsync("/<#= Model.Name #>", arg); 
+            var arg = <#=  new ObjectInitializer(Model.Name, updateValues , false).ToText()  #>; 
+            var defaultPage = await _client.PutAsJsonAsync("/<#= Model.Name #>", arg); 
             defaultPage.EnsureSuccessStatusCode();
         }
 
@@ -110,7 +110,7 @@ namespace <#= Info.ProjectName #>IntegrationTest
         [Test, Property("Seeder", "<#= Info.ProjectName #>IntegrationTest.Seeders.DefaultSeeder")]
         public async Task <#= Model.Name #>DeleteTest()
         {
-            var defaultPage = await Client.DeleteAsync("/<#= Model.Name #>/1"); 
+            var defaultPage = await _client.DeleteAsync("/<#= Model.Name #>/1"); 
             defaultPage.EnsureSuccessStatusCode();
 
         }

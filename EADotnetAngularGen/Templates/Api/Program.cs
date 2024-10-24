@@ -18,7 +18,7 @@ namespace EADotnetAngularGen.Templates.Api
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Program.tt"
+    #line 1 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Program.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class Program : ProgramBase
     {
@@ -28,10 +28,9 @@ namespace EADotnetAngularGen.Templates.Api
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using Microsoft.EntityFrameworkCore;\r\nusing Swashbuckle.AspNetCore.Swagger;\r\nusin" +
-                    "g Microsoft.OpenApi.Models;\r\nusing Microsoft.OpenApi.Extensions;\r\nusing ");
+            this.Write("using Microsoft.EntityFrameworkCore;\r\n\r\nnamespace ");
             
-            #line 10 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Program.tt"
+            #line 8 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Program.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Info.ProjectName));
             
             #line default
@@ -88,7 +87,7 @@ public class Program
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 58 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\Program.tt"
+        #line 56 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\Program.tt"
 
 
 public Info Info { get; set; }

@@ -18,7 +18,7 @@ namespace EADotnetAngularGen.Templates.Api
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\CustomWebApplicationFactory.tt"
+    #line 1 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\CustomWebApplicationFactory.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class CustomWebApplicationFactory : CustomWebApplicationFactoryBase
     {
@@ -32,14 +32,14 @@ namespace EADotnetAngularGen.Templates.Api
                     "spNetCore.Mvc.Testing;\r\nusing Microsoft.Data.Sqlite;\r\nusing Microsoft.EntityFram" +
                     "eworkCore;\r\nusing Microsoft.Extensions.DependencyInjection;\r\nusing ");
             
-            #line 12 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\CustomWebApplicationFactory.tt"
+            #line 12 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\CustomWebApplicationFactory.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Info.ProjectName));
             
             #line default
             #line hidden
             this.Write(";\r\n\r\nnamespace ");
             
-            #line 14 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\CustomWebApplicationFactory.tt"
+            #line 14 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\CustomWebApplicationFactory.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Info.ProjectName));
             
             #line default
@@ -55,19 +55,18 @@ namespace EADotnetAngularGen.Templates.Api
                     "iceType == typeof(DbConnection)\r\n                );\r\n\r\n                services." +
                     "Remove(dbConnectionDescriptor!);\r\n\r\n                // Create open SqliteConnect" +
                     "ion so EF won\'t automatically close it.\r\n                services.AddSingleton<D" +
-                    "bConnection>(container =>\r\n                {\r\n                    var connection" +
-                    " = new SqliteConnection(\"DataSource=:memory:\");\r\n                    connection." +
-                    "Open();\r\n\r\n                    return connection;\r\n                });\r\n\r\n      " +
-                    "          services.AddDbContext<ApplicationDbContext>(\r\n                    (con" +
-                    "tainer, options) =>\r\n                    {\r\n                        var connecti" +
-                    "on = container.GetRequiredService<DbConnection>();\r\n                        opti" +
-                    "ons.UseSqlite(connection);\r\n                    }\r\n                );\r\n         " +
-                    "   });\r\n\r\n            builder.UseEnvironment(\"Integration\");\r\n        }\r\n\r\n    }" +
-                    "\r\n}\r\n\r\n");
+                    "bConnection>(_ =>\r\n                {\r\n                    var connection = new S" +
+                    "qliteConnection(\"DataSource=:memory:\");\r\n                    connection.Open();\r" +
+                    "\n\r\n                    return connection;\r\n                });\r\n\r\n              " +
+                    "  services.AddDbContext<ApplicationDbContext>(\r\n                    (container, " +
+                    "options) =>\r\n                    {\r\n                        var connection = con" +
+                    "tainer.GetRequiredService<DbConnection>();\r\n                        options.UseS" +
+                    "qlite(connection);\r\n                    }\r\n                );\r\n            });\r\n" +
+                    "\r\n            builder.UseEnvironment(\"Integration\");\r\n        }\r\n\r\n    }\r\n}\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 59 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\CustomWebApplicationFactory.tt"
+        #line 59 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\CustomWebApplicationFactory.tt"
 
 
 public Info Info { get; set; }

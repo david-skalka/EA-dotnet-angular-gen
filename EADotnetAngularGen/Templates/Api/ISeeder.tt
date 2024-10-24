@@ -3,11 +3,7 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using NUnit.Framework.Interfaces;
 using <#= Info.ProjectName #>;
-using <#= Info.ProjectName #>.Models;
 
 namespace <#= Info.ProjectName #>IntegrationTest
 {

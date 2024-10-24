@@ -16,24 +16,19 @@ namespace <#= Info.ProjectName #>IntegrationTest.Seeders
 <# foreach (var model in Entities) { #>
   
 
-    virtual protected List<<#= model.Name  #>> <#= model.Name #>
-    {
-            get
-            {
-                return new List<<#= model.Name  #>>{
+    protected virtual List<<#= model.Name  #>> <#= model.Name #> => [
 <# for(var i=0; i< Info.SeedCount; i++) { #>
 <# var values= model.Attributes.Cast<EA.Attribute>().Where(x => x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()); model.Attributes.Cast<EA.Attribute>().Where(x=> !x.IsTypePrimitive()).ToList().ForEach(attr => values[attr.Name+"Id"]=1); values["Id"]= i+1; #>
-                <#=new ObjectInitializer(model.Name,  values) .ToText()  #>,
+                <#=new ObjectInitializer(model.Name,  values, true) .ToText()  #>,
 <# } #>
-            };
-        }
-    }
+        ];
+    
 
 
 <# } #>
 
 
-    public virtual List<object> GetAll()
+    protected virtual List<object> GetAll()
     {
         var retD = new List<object>();
 <# foreach(var entity in Entities) { #>

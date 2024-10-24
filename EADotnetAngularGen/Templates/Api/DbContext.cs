@@ -18,7 +18,7 @@ namespace EADotnetAngularGen.Templates.Api
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\DbContext.tt"
+    #line 1 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\DbContext.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class DbContext : DbContextBase
     {
@@ -30,54 +30,43 @@ namespace EADotnetAngularGen.Templates.Api
         {
             this.Write("using Microsoft.EntityFrameworkCore;\r\nusing ");
             
-            #line 7 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\DbContext.tt"
+            #line 7 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\DbContext.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Info.ProjectName));
             
             #line default
             #line hidden
             this.Write(".Models;\r\n\r\nnamespace ");
             
-            #line 9 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\DbContext.tt"
+            #line 9 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\DbContext.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Info.ProjectName));
             
             #line default
             #line hidden
-            this.Write(@"
-{
-    public class ApplicationDbContext : DbContext
-    {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options) { }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-        }
-
-");
+            this.Write("\r\n{\r\n    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext>" +
+                    " options) : DbContext(options)\r\n    {\r\n\r\n");
             
-            #line 21 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\DbContext.tt"
+            #line 14 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\DbContext.tt"
  foreach (var model in Entities) { 
             
             #line default
             #line hidden
             this.Write("        public DbSet<");
             
-            #line 22 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\DbContext.tt"
+            #line 15 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\DbContext.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(model.Name));
             
             #line default
             #line hidden
             this.Write("> ");
             
-            #line 22 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\DbContext.tt"
+            #line 15 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\DbContext.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(model.Name));
             
             #line default
             #line hidden
-            this.Write(" { get; set; } = null!;\r\n\r\n");
+            this.Write(" { get; init; } = null!;\r\n\r\n");
             
-            #line 24 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\DbContext.tt"
+            #line 17 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\DbContext.tt"
  } 
             
             #line default
@@ -86,7 +75,7 @@ namespace EADotnetAngularGen.Templates.Api
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 30 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\DbContext.tt"
+        #line 23 "C:\Users\pc6vi\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\DbContext.tt"
 
 public EA.Element[] Entities { get; set; }
 
