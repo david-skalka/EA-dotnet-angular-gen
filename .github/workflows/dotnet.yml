@@ -28,7 +28,7 @@ jobs:
     - name: Run InspectCode
       run: |
         jb inspectcode -f=text -o=inspect-report.txt SampleApp.sln
-      working-directory: EADotnetAngularGen\bin\Debug
+      working-directory: SampleApp
     - name: Run Dotnet Test
       run: |
         dotnet tool install --global dotnet-coverage
