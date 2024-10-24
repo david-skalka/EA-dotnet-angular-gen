@@ -16,18 +16,21 @@ namespace <#= Info.ProjectName #>.Controllers
         [HttpGet]
         public IEnumerable<<#= Model.Name #>> Get()
         {
+             logger.LogDebug("REST request to get a <#= Model.Name #>");
              return applicationDbContext.<#= Model.Name #>.ToList();
         }
 
         [HttpGet("{id:int}")]
         public ActionResult<<#= Model.Name #>> Get(int id)
         {
+            logger.LogDebug($"REST request to get a <#= Model.Name #> : {id}");
             return applicationDbContext.<#= Model.Name #>.Single(x=>x.Id==id);
         }
 
         [HttpPost]
         public ActionResult<<#= Model.Name #>> Create(<#= Model.Name #> data)
         {
+            logger.LogDebug($"REST request to save <#= Model.Name #> : {data}");
             applicationDbContext.<#= Model.Name #>.Add(data);
             applicationDbContext.SaveChanges();
             return data;
@@ -36,6 +39,7 @@ namespace <#= Info.ProjectName #>.Controllers
         [HttpPut]
         public ActionResult<<#= Model.Name #>> Update(<#= Model.Name #> data)
         {
+            logger.LogDebug($"REST request to update <#= Model.Name #> : {data}");
             applicationDbContext.<#= Model.Name #>.Update(data);
             applicationDbContext.SaveChanges();
             return data;
@@ -44,6 +48,7 @@ namespace <#= Info.ProjectName #>.Controllers
         [HttpDelete("{id:int}")]
         public ActionResult Delete(int id)
         {
+            logger.LogDebug($"REST request to delete <#= Model.Name #> : {id}");
             applicationDbContext.<#= Model.Name #>.Remove(applicationDbContext.<#= Model.Name #>.Single(x=>x.Id==id));
             applicationDbContext.SaveChanges();
             return Ok();

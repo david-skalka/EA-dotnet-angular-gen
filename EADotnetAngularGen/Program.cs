@@ -68,6 +68,8 @@ namespace EADotnetAngularGen
                         new MkdirGeneratorCommand(Path.Combine(testProjectPath, "Seeders")),
                         new ShellGeneratorCommand("dotnet",
                             "add package Microsoft.AspNetCore.Mvc.Testing --version 8.0.6", testProjectPath),
+                        new ShellGeneratorCommand("dotnet",
+                            "add package JetBrains.Annotations --version 2024.2.0", testProjectPath),
                         new ShellGeneratorCommand("dotnet", "add reference ../" + info.ProjectName, testProjectPath),
                         new T4GeneratorCommand(new ISeeder { Info = info }, Path.Combine(testProjectPath, "ISeeder.cs"),
                             true),

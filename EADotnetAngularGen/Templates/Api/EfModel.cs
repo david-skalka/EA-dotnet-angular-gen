@@ -18,7 +18,7 @@ namespace EADotnetAngularGen.Templates.Api
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\EfModel.tt"
+    #line 1 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\EfModel.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class EfModel : EfModelBase
     {
@@ -29,7 +29,7 @@ namespace EADotnetAngularGen.Templates.Api
         public virtual string TransformText()
         {
             
-            #line 6 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\EfModel.tt"
+            #line 6 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\EfModel.tt"
 
     var primitivesMap = new Dictionary<string, string>()
 {
@@ -42,7 +42,7 @@ namespace EADotnetAngularGen.Templates.Api
 
 var defaultValues = new Dictionary<string, string>()
 {
-    {"EAC__String", "String.Empty"},
+    {"String", "String.Empty"},
 };
 
 
@@ -51,104 +51,104 @@ var defaultValues = new Dictionary<string, string>()
             #line hidden
             this.Write("using System.ComponentModel.DataAnnotations;\r\n\r\n\r\nnamespace ");
             
-            #line 25 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\EfModel.tt"
+            #line 25 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\EfModel.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Info.ProjectName));
             
             #line default
             #line hidden
             this.Write(".Models\r\n{\r\n\r\n    public class ");
             
-            #line 28 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\EfModel.tt"
+            #line 28 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\EfModel.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Model.Name));
             
             #line default
             #line hidden
             this.Write("\r\n    {\r\n        \r\n");
             
-            #line 31 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\EfModel.tt"
+            #line 31 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\EfModel.tt"
  foreach (EA.Attribute attribute in Model.Attributes) { 
             
             #line default
             #line hidden
             
-            #line 32 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\EfModel.tt"
+            #line 32 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\EfModel.tt"
  if(attribute.IsTypePrimitive()) { 
             
             #line default
             #line hidden
             this.Write("        ");
             
-            #line 33 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\EfModel.tt"
+            #line 33 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\EfModel.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(!attribute.IsNullable() ? "[Required]" : ""));
             
             #line default
             #line hidden
             this.Write("\r\n        public ");
             
-            #line 34 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\EfModel.tt"
+            #line 34 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\EfModel.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(primitivesMap[attribute.Type] + (attribute.IsNullable() ? "?" : "")));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 34 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\EfModel.tt"
+            #line 34 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\EfModel.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(attribute.Name));
             
             #line default
             #line hidden
-            this.Write(" { get; set; } ");
+            this.Write(" { get; init; } ");
             
-            #line 34 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\EfModel.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(defaultValues.ContainsKey(attribute.Type) ? "= " + defaultValues[attribute.Type] + ";" : ""));
+            #line 34 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\EfModel.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(!attribute.IsNullable() && defaultValues.ContainsKey(attribute.Type) ? "= " + defaultValues[attribute.Type] + ";" : ""));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 35 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\EfModel.tt"
+            #line 35 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\EfModel.tt"
  } else {  
             
             #line default
             #line hidden
             this.Write("        ");
             
-            #line 36 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\EfModel.tt"
+            #line 36 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\EfModel.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(!attribute.IsNullable() ? "[Required]" : ""));
             
             #line default
             #line hidden
             this.Write(" \r\n        public int ");
             
-            #line 37 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\EfModel.tt"
+            #line 37 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\EfModel.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(attribute.Name));
             
             #line default
             #line hidden
-            this.Write("Id { get; set; }\r\n\r\n        public ");
+            this.Write("Id { get; init; }\r\n\r\n        public ");
             
-            #line 39 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\EfModel.tt"
+            #line 39 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\EfModel.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(attribute.Name));
             
             #line default
             #line hidden
             this.Write("? ");
             
-            #line 39 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\EfModel.tt"
+            #line 39 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\EfModel.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(attribute.Type));
             
             #line default
             #line hidden
-            this.Write(" { get; set; }\r\n");
+            this.Write(" { get; init; }\r\n");
             
-            #line 40 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\EfModel.tt"
+            #line 40 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\EfModel.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 42 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\EfModel.tt"
+            #line 42 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\EfModel.tt"
  } 
             
             #line default
@@ -157,7 +157,7 @@ var defaultValues = new Dictionary<string, string>()
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 48 "C:\Users\David\source\repos\EADotnetAngularGen\EADotnetAngularGen\Templates\Api\EfModel.tt"
+        #line 48 "C:\Users\David\source\repos\EA-dotnet-angular-gen\EADotnetAngularGen\Templates\Api\EfModel.tt"
 
 public EA.Element Model { get; set; }
 public Info Info { get; set; }

@@ -15,7 +15,7 @@
 
 var defaultValues = new Dictionary<string, string>()
 {
-    {"EAC__String", "String.Empty"},
+    {"String", "String.Empty"},
 };
 
 #>
@@ -31,12 +31,12 @@ namespace <#= Info.ProjectName #>.Models
 <# foreach (EA.Attribute attribute in Model.Attributes) { #>
 <# if(attribute.IsTypePrimitive()) { #>
         <#= !attribute.IsNullable() ? "[Required]" : "" #>
-        public <#= primitivesMap[attribute.Type] + (attribute.IsNullable() ? "?" : "") #> <#= attribute.Name #> { get; set; } <#= defaultValues.ContainsKey(attribute.Type) ? "= " + defaultValues[attribute.Type] + ";" : "" #>
+        public <#= primitivesMap[attribute.Type] + (attribute.IsNullable() ? "?" : "") #> <#= attribute.Name #> { get; init; } <#= !attribute.IsNullable() && defaultValues.ContainsKey(attribute.Type) ? "= " + defaultValues[attribute.Type] + ";" : "" #>
 <# } else {  #>
         <#= !attribute.IsNullable() ? "[Required]" : "" #> 
-        public int <#= attribute.Name #>Id { get; set; }
+        public int <#= attribute.Name #>Id { get; init; }
 
-        public <#= attribute.Name #>? <#= attribute.Type #> { get; set; }
+        public <#= attribute.Name #>? <#= attribute.Type #> { get; init; }
 <# } #>
 
 <# } #>

@@ -3,13 +3,14 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using <#= Info.ProjectName #>;
 using <#= Info.ProjectName #>.Models;
 
 namespace <#= Info.ProjectName #>IntegrationTest.Seeders
 {
-
+    [UsedImplicitly(ImplicitUseTargetFlags.WithInheritors | ImplicitUseTargetFlags.Default)]
     public class DefaultSeeder : ISeeder
     {
 

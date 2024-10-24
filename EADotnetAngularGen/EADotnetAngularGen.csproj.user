@@ -4,6 +4,6 @@
     <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartArguments>-d Output -f "..\..\..\Data\SampleModel.qea" -n SampleApp</StartArguments>
+    <StartArguments>-d Output -f "..\..\..\Data\SampleModel.qea" -n SampleApp -o</StartArguments>
   </PropertyGroup>
 </Project>
