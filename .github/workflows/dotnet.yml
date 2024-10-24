@@ -30,6 +30,14 @@ jobs:
         jb inspectcode -f=text -o=inspect-report.txt SampleApp.sln
       working-directory: SampleApp
       shell: cmd
+      - name: Check inspect-report.txt
+      shell: pwsh  # Use PowerShell on Linux or Windows runners
+      run: |
+        $lineCount = (Get-Content inspect-report.txt).Count
+        if ($lineCount -gt 1) {
+          exit 1
+        }
+      working-directory: SampleApp  
     - name: Run Dotnet Test
       run: |
         dotnet tool install --global dotnet-coverage
