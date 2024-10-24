@@ -25,6 +25,14 @@ jobs:
     - name: Generate Sample project
       run: ./EADotnetAngularGen.exe -d "..\..\..\SampleApp" -f "..\..\..\Data\SampleModel.qea" -n SampleApp -p .* -o
       working-directory: EADotnetAngularGen\bin\Debug
+      - name: Install ReSharper Global Tools
+      run: |
+        dotnet tool install --global JetBrains.ReSharper.GlobalTools
+    - name: Run InspectCode
+      run: |
+        export PATH="$PATH:/home/runner/.dotnet/tools"
+        inspectcode SampleApp.sln -f=text -o=inspect-report.txt
+      working-directory: EADotnetAngularGen\bin\Debug
     - name: Run Dotnet Test
       run: |
         dotnet tool install --global dotnet-coverage
