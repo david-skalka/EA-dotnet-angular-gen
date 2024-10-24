@@ -30,8 +30,8 @@ jobs:
         jb inspectcode -f=text -o=inspect-report.txt SampleApp.sln
       working-directory: SampleApp
       shell: cmd
-      - name: Check inspect-report.txt
-      shell: pwsh  # Use PowerShell on Linux or Windows runners
+    - name: Check inspect-report.txt
+      shell: pwsh
       run: |
         $lineCount = (Get-Content inspect-report.txt).Count
         if ($lineCount -gt 1) {
