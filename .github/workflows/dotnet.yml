@@ -72,7 +72,7 @@ jobs:
         badge-path: './angular-coverage.svg'
         badge-type: 'cobertura'
         title: 'Angular Coverage'
-        cobertura-path: './SampleAppClient/coverage/cobertura-coverage.xml'
+        cobertura-path: './SampleApp/SampleAppClient/coverage/cobertura-coverage.xml'
     - name: Upload Angular badge to Gist
       uses: exuanbo/actions-deploy-gist@v1
       with:
