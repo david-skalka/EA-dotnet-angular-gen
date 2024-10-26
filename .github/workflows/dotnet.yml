@@ -52,7 +52,7 @@ jobs:
       uses: exuanbo/actions-deploy-gist@v1
       with:
         token: ${{ secrets.GIST_TOKEN }}
-        gist_id: 1ac2c9f2002be792389622871ae9401c
+        gist_id: 432ba471dc7960cd3f67f1930bbc5069
         file_path: dotnet-coverage.svg
         gist_file_name: EA-dotnet-angular-gen-dotnet-coverage.svg 
     - name: Install node_modules
