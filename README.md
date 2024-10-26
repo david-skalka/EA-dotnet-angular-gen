@@ -1,9 +1,11 @@
 <h1 align="center">Welcome to Enterprise Architect Dotnet Angular Generator👋</h1>
 <p>
 
-  <a href="#" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-  </a>
+
+  ![Dotnet coverage](https://gist.githubusercontent.com/david-skalka/432ba471dc7960cd3f67f1930bbc5069/raw/c5673d527f0a73c57ad956591a5f3db3aee47698/EA-dotnet-angular-gen-dotnet-coverage.svg)
+  ![Angular coverage](https://gist.githubusercontent.com/david-skalka/eee2697cb6d090e1f40427b636253eb9/raw/bec4c09ea90626e2bbf1ae3bd6819fdd29b54e90/EA-dotnet-angular-gen-angular-coverage.svg)
+
+
 </p>
 A source code generator for Enterprise Architect that creates a test-driven, development-ready .NET Angular CRUD application from a UML model. It also generates integration tests for both the API and Angular components, using Autobogus to auto-generate fake data. Inspired by the JHipster and Yellicode bookstore tutorials, the generator is minimalist and designed to be easily customized for your own model-driven generation technology.
 
