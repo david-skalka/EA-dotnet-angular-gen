@@ -53,7 +53,7 @@ jobs:
       with:
         token: ${{ secrets.GIST_TOKEN }}
         gist_id: 1ac2c9f2002be792389622871ae9401c
-        file_path: SampleApp/dotnet-coverage.svg
+        file_path: dotnet-coverage.svg
         gist_file_name: EA-dotnet-angular-gen-dotnet-coverage.svg 
     - name: Install node_modules
       run: npm i
