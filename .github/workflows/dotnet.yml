@@ -48,6 +48,7 @@ jobs:
         badge-type: 'cobertura'
         title: 'Dotnet Coverage'
         cobertura-path: './coverage.xml'
+      working-directory: SampleApp
     - name: Upload Dotnet badge to Gist
       uses: exuanbo/actions-deploy-gist@v1
       with:
@@ -55,6 +56,7 @@ jobs:
         gist_id: 1ac2c9f2002be792389622871ae9401c
         file_path: dotnet-coverage.svg
         gist_file_name: EA-dotnet-angular-gen-dotnet-coverage.svg 
+      working-directory: SampleApp
     - name: Install node_modules
       run: npm i
       working-directory: SampleApp/SampleAppClient
