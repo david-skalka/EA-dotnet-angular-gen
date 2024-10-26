@@ -67,6 +67,20 @@ jobs:
     - name: Run Angular tests
       run: npm run-script ng test -- --karma-config=karma-ci.conf.js
       working-directory: SampleApp/SampleAppClient
+    - uses: cjlapao/simple-badge-generator-action@v1
+      with:
+        badge-path: './angular-coverage.svg'
+        badge-type: 'cobertura'
+        title: 'Angular Coverage'
+        cobertura-path: './SampleAppClient/coverage/cobertura-coverage.xml'
+    - name: Upload Angular badge to Gist
+      uses: exuanbo/actions-deploy-gist@v1
+      with:
+        token: ${{ secrets.GIST_TOKEN }}
+        gist_id: eee2697cb6d090e1f40427b636253eb9
+        file_path: angular-coverage.svg
+        gist_file_name: EA-dotnet-angular-gen-angular-coverage.svg
+
     - uses: actions/upload-artifact@v4
       with:
         name: Generator
