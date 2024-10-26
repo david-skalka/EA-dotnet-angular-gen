@@ -42,6 +42,19 @@ jobs:
         dotnet tool install --global dotnet-coverage
         dotnet-coverage collect dotnet test -f cobertura -o coverage.xml
       working-directory: SampleApp
+    - uses: cjlapao/simple-badge-generator-action@v1
+      with:
+        badge-path: './dotnet-coverage.svg'
+        badge-type: 'cobertura'
+        title: 'Dotnet Coverage'
+        cobertura-path: './coverage.xml'
+    - name: Upload Dotnet badge to Gist
+      uses: exuanbo/actions-deploy-gist@v1
+      with:
+        token: ${{ secrets.GIST_TOKEN }}
+        gist_id: 1ac2c9f2002be792389622871ae9401c
+        file_path: dotnet-coverage.svg
+        gist_file_name: EA-dotnet-angular-gen-dotnet-coverage.svg 
     - name: Install node_modules
       run: npm i
       working-directory: SampleApp/SampleAppClient
