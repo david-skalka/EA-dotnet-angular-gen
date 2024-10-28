@@ -43,11 +43,11 @@ namespace EADotnetAngularGen
             var clientProjectPath = Path.Combine(outputDir, info.ProjectName + "Client");
 
 
-            var pipeline = new Dictionary<string, IGeneratorCommand[]>
+            var pipeline = new Dictionary<string, IGeneratorCommand>
             {
                 {
-                    "initialize-solution", new IGeneratorCommand[]
-                    {
+                    "initialize-solution", new MultiCommand(
+                    new IGeneratorCommand[]{
                         new ShellGeneratorCommand("dotnet", "new sln -n " + info.ProjectName + " -o " + outputDir + '"',
                             null),
                         new ShellGeneratorCommand("dotnet",
@@ -78,13 +78,13 @@ namespace EADotnetAngularGen
                         new ShellGeneratorCommand("dotnet",
                             "dotnet sln " + info.ProjectName + ".sln add " + info.ProjectName + " " + testProjectPath,
                             outputDir)
-                    }
+                    })
                 },
 
 
                 {
-                    "initialize-angular", new IGeneratorCommand[]
-                    {
+                    "initialize-angular", new MultiCommand(
+                    new IGeneratorCommand[]{
                         new ShellGeneratorCommand("npx",
                             "@angular/cli@18.0.7 new " + info.ProjectName + "Client --style scss --ssr false",
                             outputDir),
@@ -136,28 +136,22 @@ namespace EADotnetAngularGen
                         new T4GeneratorCommand(new EsLintConfig(), Path.Combine(clientProjectPath, "eslint.config.js"), true)
 
 
-                    }
+                    })
                 },
                 {
                     "db-context",
-                    new IGeneratorCommand[]
-                    {
-                        new T4GeneratorCommand(new DbContext { Info = info, Entities = entities },
+                    new T4GeneratorCommand(new DbContext { Info = info, Entities = entities },
                             Path.Combine(outputDir, info.ProjectName, "ApplicationDbContext.cs"), overwrite)
-                    }
                 },
                 {
                     "seeder",
-                    new IGeneratorCommand[]
-                    {
-                        new T4GeneratorCommand(new Seeder { Entities = entities, Info = info },
+                    new T4GeneratorCommand(new Seeder { Entities = entities, Info = info },
                             Path.Combine(outputDir, info.ProjectName + "IntegrationTest", "Seeders",
                                 "DefaultSeeder.cs"), overwrite)
-                    }
                 },
                 {
-                    "app-component", new IGeneratorCommand[]
-                    {
+                    "app-component", new MultiCommand(
+                   new IGeneratorCommand[]{
                         new T4GeneratorCommand(new AppComponent { Info = info },
                             Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.component.ts"),
                             overwrite),
@@ -167,24 +161,21 @@ namespace EADotnetAngularGen
                         new T4GeneratorCommand(new AppComponentSpec { Info = info },
                             Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.component.spec.ts"),
                             overwrite)
-                    }
+                    })
                 },
                 {
                     "app-routes",
-                    new IGeneratorCommand[]
-                    {
-                        new T4GeneratorCommand(new AppRoutes { Entities = entities },
+                    new T4GeneratorCommand(new AppRoutes { Entities = entities },
                             Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.routes.ts"),
                             overwrite)
-                    }
                 }
             };
 
 
             foreach (var entity in entities)
                 pipeline.Add($"entity-{entity.Name.ToKebabCase()}",
-                    new IGeneratorCommand[]
-                    {
+                    new MultiCommand
+                    ( new IGeneratorCommand[]{
                         new T4GeneratorCommand(new EfModel { Model = entity, Info = info },
                             Path.Combine(outputDir, info.ProjectName, "Models", entity.Name + ".cs"), overwrite),
                         new T4GeneratorCommand(new Controller { Model = entity, Info = info },
@@ -229,12 +220,12 @@ namespace EADotnetAngularGen
                             Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
                                 entity.Name.ToKebabCase() + "-list",
                                 entity.Name.ToKebabCase() + "-list.component.scss"), overwrite)
-                    });
+                    }));
 
             var selectedParts = partsFilter!=null ? pipeline.Where(x=>Regex.Match(x.Key, partsFilter).Success).Select(x => x.Key) : Prompt.MultiSelect("Select parts", pipeline.Select(x => x.Key));
 
 
-            foreach (var part in selectedParts) pipeline[part].ToList().ForEach(x => x.Execute());
+            foreach (var part in selectedParts) pipeline[part].Execute();
         }
 
 

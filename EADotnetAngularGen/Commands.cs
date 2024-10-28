@@ -119,4 +119,23 @@ namespace EADotnetAngularGen
             File.WriteAllText(_path, JsonConvert.SerializeObject(output, Formatting.Indented));
         }
     }
+
+
+    public class MultiCommand : IGeneratorCommand
+    {
+        private readonly IGeneratorCommand[] _commands;
+
+        public MultiCommand(params IGeneratorCommand[] commands)
+        {
+            this._commands = commands;
+        }
+
+        public void Execute()
+        {
+            foreach (var command in _commands)
+            {
+                command.Execute();
+            }
+        }
+    }
 }
