@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using AutoBogus;
+using CaseExtensions;
+using EA;
 using Attribute = EA.Attribute;
 
 namespace EADotnetAngularGen
@@ -50,5 +54,50 @@ namespace EADotnetAngularGen
                     throw new NotImplementedException();
             }
         }
+        
+
+        }
+
+
+
+    public static class ElementExtensions
+    {
+        public static string JsObjectInitializer(this Element _, Dictionary<string, object> values)
+        {
+
+            var valueFormaters =
+                new Dictionary<Type, Func<object, string>>
+                {
+                    { typeof(string), value => "\"" + (string)value + "\"" },
+                    { typeof(int), value => ((int)value).ToString() },
+                    { typeof(bool), value => (bool)value ? "true" : "false" },
+                    { typeof(decimal), value => ((decimal)value).ToString(new CultureInfo("en-US")) }
+                };
+
+
+            return "{ " + string.Join(", ",
+                values.Select(x => x.Key.ToCamelCase() + ":  " + valueFormaters[x.Value.GetType()](x.Value))) + " }";
+        }
+        
+        
+        
+        
+        public static string CsharpObjectInitializer(this Element element, Dictionary<string, object> values, bool simple)
+        {
+
+        var valueFormaters =
+                new Dictionary<Type, Func<object, string>>
+                {
+                    { typeof(string), value => "\"" + (string)value + "\"" },
+                    { typeof(int), value => ((int)value).ToString() },
+                    { typeof(bool), value => (bool)value ? "true" : "false" },
+                    { typeof(decimal), value => ((decimal)value).ToString(new CultureInfo("en-US")) + "m" }
+                };
+
+
+        return  (simple ? "new()" : $"new {element.Name}()") + " { " + string.Join(", ",
+            values.Select(x => x.Key + "= " + valueFormaters[x.Value.GetType()](x.Value))) + " }";
+        }
     }
+
 }

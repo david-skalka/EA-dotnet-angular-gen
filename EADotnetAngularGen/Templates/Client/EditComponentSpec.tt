@@ -4,6 +4,7 @@
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="CaseExtensions" #>
+<#@ import namespace="EADotnetAngularGen.Templates.Api" #>
 import { TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
@@ -36,7 +37,7 @@ describe('<#= Model.Name #>EditComponent', () => {
 <# } #>
   matDialogRefSpy.close.and.returnValue();
   
-  const <#= Model.Name.ToCamelCase() #>  = <#= new ObjectInitializer( Model.Attributes.Cast<EA.Attribute>().Where(x=>x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()) ).ToText() #> as <#= Model.Name #>
+  const <#= Model.Name.ToCamelCase() #>  = <#= Model.JsObjectInitializer( Model.Attributes.Cast<EA.Attribute>().Where(x=>x.IsTypePrimitive()).ToDictionary(x=>x.Name, x=>x.GetFakeValue()) ) #> as <#= Model.Name #>
   
   <#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>IdGet.and.returnValue(of(<#= Model.Name.ToCamelCase() #>)  );
   <#= Model.Name.ToCamelCase() #>ServiceSpy.<#= Model.Name.ToCamelCase() #>Put.and.returnValue(of(<#= Model.Name.ToCamelCase() #>)  );

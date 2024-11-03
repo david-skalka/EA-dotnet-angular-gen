@@ -46,82 +46,54 @@ namespace EADotnetAngularGen
             var pipeline = new Dictionary<string, IGeneratorCommand>
             {
                 {
-                    "initialize-solution", new MultiCommand(
-                    new IGeneratorCommand[]{
-                        new ShellGeneratorCommand("dotnet", "new sln -n " + info.ProjectName + " -o " + outputDir + '"',
-                            null),
-                        new ShellGeneratorCommand("dotnet",
-                            "new webapi -f net8.0 -n " + info.ProjectName + " -o " +
-                            Path.Combine(outputDir, info.ProjectName), null),
-                        new MkdirGeneratorCommand(Path.Combine(outputDir, info.ProjectName, "Models")),
-                        new MkdirGeneratorCommand(Path.Combine(outputDir, info.ProjectName, "Controllers")),
-                        new ShellGeneratorCommand("dotnet", "add package Microsoft.EntityFrameworkCore --version 8.0.6",
-                            Path.Combine(outputDir, info.ProjectName)),
-                        new ShellGeneratorCommand("dotnet",
-                            "add package Microsoft.EntityFrameworkCore.Sqlite --version 8.0.6",
-                            Path.Combine(outputDir, info.ProjectName)),
-                        new T4GeneratorCommand(new Templates.Api.Program { Info = info },
-                            Path.Combine(outputDir, info.ProjectName, "Program.cs"), true),
-                        new ShellGeneratorCommand("dotnet",
-                            "new nunit -f net8.0 -n " + info.ProjectName + "IntegrationTest -o \"" + testProjectPath,
-                            null),
-                        new MkdirGeneratorCommand(Path.Combine(testProjectPath, "Seeders")),
-                        new ShellGeneratorCommand("dotnet",
-                            "add package Microsoft.AspNetCore.Mvc.Testing --version 8.0.6", testProjectPath),
-                        new ShellGeneratorCommand("dotnet",
-                            "add package JetBrains.Annotations --version 2024.2.0", testProjectPath),
-                        new ShellGeneratorCommand("dotnet", "add reference ../" + info.ProjectName, testProjectPath),
-                        new T4GeneratorCommand(new ISeeder { Info = info }, Path.Combine(testProjectPath, "ISeeder.cs"),
-                            true),
-                        new T4GeneratorCommand(new CustomWebApplicationFactory { Info = info },
-                            Path.Combine(testProjectPath, "CustomWebApplicationFactory.cs"), true),
-                        new ShellGeneratorCommand("dotnet",
-                            "dotnet sln " + info.ProjectName + ".sln add " + info.ProjectName + " " + testProjectPath,
-                            outputDir)
-                    })
+                    "initialize-solution", new MultiCommand(new ShellGeneratorCommand("dotnet", "new sln -n " + info.ProjectName + " -o " + outputDir + '"',
+                        null), new ShellGeneratorCommand("dotnet",
+                        "new webapi -f net8.0 -n " + info.ProjectName + " -o " +
+                        Path.Combine(outputDir, info.ProjectName), null), new MkdirGeneratorCommand(Path.Combine(outputDir, info.ProjectName, "Models")), new MkdirGeneratorCommand(Path.Combine(outputDir, info.ProjectName, "Controllers")), new ShellGeneratorCommand("dotnet", "add package Microsoft.EntityFrameworkCore --version 8.0.6",
+                        Path.Combine(outputDir, info.ProjectName)), new ShellGeneratorCommand("dotnet",
+                        "add package Microsoft.EntityFrameworkCore.Sqlite --version 8.0.6",
+                        Path.Combine(outputDir, info.ProjectName)), new T4GeneratorCommand(new Templates.Api.Program { Info = info },
+                        Path.Combine(outputDir, info.ProjectName, "Program.cs"), true), new ShellGeneratorCommand("dotnet",
+                        "new nunit -f net8.0 -n " + info.ProjectName + "IntegrationTest -o \"" + testProjectPath,
+                        null), new MkdirGeneratorCommand(Path.Combine(testProjectPath, "Seeders")), new ShellGeneratorCommand("dotnet",
+                        "add package Microsoft.AspNetCore.Mvc.Testing --version 8.0.6", testProjectPath), new ShellGeneratorCommand("dotnet",
+                        "add package JetBrains.Annotations --version 2024.2.0", testProjectPath), new ShellGeneratorCommand("dotnet", "add reference ../" + info.ProjectName, testProjectPath), new T4GeneratorCommand(new ISeeder { Info = info }, Path.Combine(testProjectPath, "ISeeder.cs"),
+                        true), new T4GeneratorCommand(new CustomWebApplicationFactory { Info = info },
+                        Path.Combine(testProjectPath, "CustomWebApplicationFactory.cs"), true), new ShellGeneratorCommand("dotnet",
+                        "dotnet sln " + info.ProjectName + ".sln add " + info.ProjectName + " " + testProjectPath,
+                        outputDir))
                 },
 
 
                 {
-                    "initialize-angular", new MultiCommand(
-                    new IGeneratorCommand[]{
-                        new ShellGeneratorCommand("npx",
-                            "@angular/cli@18.0.7 new " + info.ProjectName + "Client --style scss --ssr false",
-                            outputDir),
-                        new JsonCommand(Path.Combine(clientProjectPath, "angular.json"), des =>
-                        {
-                            ((JObject)des).Add("cli", JToken.FromObject(new { analytics = false }));
-                            var testOptions = ((JObject)des)["projects"]?[info.ProjectName + "Client"]?["architect"]?["test"]?["options"] as JObject;
-                            testOptions?.Add("codeCoverage", true);
-                            testOptions?.Add("codeCoverageExclude", new JArray(new object[] { "src/app/api/**" }));
+                    "initialize-angular", new MultiCommand(new ShellGeneratorCommand("npx",
+                        "@angular/cli@18.0.7 new " + info.ProjectName + "Client --style scss --ssr false",
+                        outputDir), new JsonCommand(Path.Combine(clientProjectPath, "angular.json"), des =>
+                    {
+                        ((JObject)des).Add("cli", JToken.FromObject(new { analytics = false }));
+                        var testOptions = ((JObject)des)["projects"]?[info.ProjectName + "Client"]?["architect"]?["test"]?["options"] as JObject;
+                        testOptions?.Add("codeCoverage", true);
+                        testOptions?.Add("codeCoverageExclude", new JArray(new object[] { "src/app/api/**" }));
 
-                            return des;
-                        }),
-                        new JsonCommand(Path.Combine(clientProjectPath, "angular.json"), des =>
-                        {
-                            ((JObject)des.projects[info.ProjectName + "Client"].architect.serve).Add("options",
-                                JToken.FromObject(new { proxyConfig = "proxy.conf.json" }));
-                            return des;
-                        }),
-                        new JsonCommand(Path.Combine(clientProjectPath, "package.json"), des =>
-                        {
+                        return des;
+                    }), new JsonCommand(Path.Combine(clientProjectPath, "angular.json"), des =>
+                    {
+                        ((JObject)des.projects[info.ProjectName + "Client"].architect.serve).Add("options",
+                            JToken.FromObject(new { proxyConfig = "proxy.conf.json" }));
+                        return des;
+                    }), new JsonCommand(Path.Combine(clientProjectPath, "package.json"), des =>
+                    {
 
-                            (((JObject)des)?.GetValue("scripts") as JObject)?.GetValue("start")?.Replace(new JValue("ng serve --ssl"));
+                        (((JObject)des)?.GetValue("scripts") as JObject)?.GetValue("start")?.Replace(new JValue("ng serve --ssl"));
 
                             
 
-                            return des;
-                        }),
-                        new T4GeneratorCommand(new ProxyConf(), Path.Combine(clientProjectPath, "proxy.conf.json"), true),
-                        new T4GeneratorCommand(new KarmaCiConf(), Path.Combine(clientProjectPath, "karma-ci.conf.js"), true),
-                        new T4GeneratorCommand(new AppConfig(),
-                            Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.config.ts"), true),
-                        new ShellGeneratorCommand("npx",
-                            "@angular/cli@18.0.7 add @angular/material --skip-confirmation --defaults",
-                            clientProjectPath),
-                        new ShellGeneratorCommand("npm", "i @openapitools/openapi-generator-cli@2.13.13 -D",
-                            clientProjectPath),
-                        new JsonCommand(Path.Combine(clientProjectPath, "package.json"), des =>
+                        return des;
+                    }), new T4GeneratorCommand(new ProxyConf(), Path.Combine(clientProjectPath, "proxy.conf.json"), true), new T4GeneratorCommand(new KarmaCiConf(), Path.Combine(clientProjectPath, "karma-ci.conf.js"), true), new T4GeneratorCommand(new AppConfig(),
+                        Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.config.ts"), true), new ShellGeneratorCommand("npx",
+                        "@angular/cli@18.0.7 add @angular/material --skip-confirmation --defaults",
+                        clientProjectPath), new ShellGeneratorCommand("npm", "i @openapitools/openapi-generator-cli@2.13.13 -D",
+                        clientProjectPath), new JsonCommand(Path.Combine(clientProjectPath, "package.json"), des =>
                         {
                             des.scripts["update-api"] =
                                 "npx --yes concurrently -k -s first -n \"API,CLI\" -c \"magenta,blue\"  \"cd..\\" +
@@ -129,14 +101,9 @@ namespace EADotnetAngularGen
                                 "\\ && dotnet run --environment Development --urls https://localhost:7064;http://localhost:5195\" \"npx --yes wait-on http-get://127.0.0.1:5195/swagger/v1/swagger.json && openapi-generator-cli generate -i http://127.0.0.1:5195/swagger/v1/swagger.json -g typescript-angular --additional-properties=withInterfaces=true -o ./src/app/api\"";
                             return des;
                         }
-                        ),
-                        new ShellGeneratorCommand("npx",
-                            "@angular/cli@18.0.7 add @angular-eslint/schematics --skip-confirmation",
-                            clientProjectPath),
-                        new T4GeneratorCommand(new EsLintConfig(), Path.Combine(clientProjectPath, "eslint.config.js"), true)
-
-
-                    })
+                    ), new ShellGeneratorCommand("npx",
+                        "@angular/cli@18.0.7 add @angular-eslint/schematics --skip-confirmation",
+                        clientProjectPath), new T4GeneratorCommand(new EsLintConfig(), Path.Combine(clientProjectPath, "eslint.config.js"), true))
                 },
                 {
                     "db-context",
@@ -150,18 +117,13 @@ namespace EADotnetAngularGen
                                 "DefaultSeeder.cs"), overwrite)
                 },
                 {
-                    "app-component", new MultiCommand(
-                   new IGeneratorCommand[]{
-                        new T4GeneratorCommand(new AppComponent { Info = info },
-                            Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.component.ts"),
-                            overwrite),
-                        new T4GeneratorCommand(new AppTemplate { Entities = entities, Info = info },
-                            Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.component.html"),
-                            overwrite),
-                        new T4GeneratorCommand(new AppComponentSpec { Info = info },
-                            Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.component.spec.ts"),
-                            overwrite)
-                    })
+                    "app-component", new MultiCommand(new T4GeneratorCommand(new AppComponent { Info = info },
+                        Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.component.ts"),
+                        overwrite), new T4GeneratorCommand(new AppTemplate { Entities = entities, Info = info },
+                        Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.component.html"),
+                        overwrite), new T4GeneratorCommand(new AppComponentSpec { Info = info },
+                        Path.Combine(outputDir, info.ProjectName + "Client", "src", "app", "app.component.spec.ts"),
+                        overwrite))
                 },
                 {
                     "app-routes",
@@ -175,52 +137,38 @@ namespace EADotnetAngularGen
             foreach (var entity in entities)
                 pipeline.Add($"entity-{entity.Name.ToKebabCase()}",
                     new MultiCommand
-                    ( new IGeneratorCommand[]{
-                        new T4GeneratorCommand(new EfModel { Model = entity, Info = info },
-                            Path.Combine(outputDir, info.ProjectName, "Models", entity.Name + ".cs"), overwrite),
-                        new T4GeneratorCommand(new Controller { Model = entity, Info = info },
-                            Path.Combine(outputDir, info.ProjectName, "Controllers", entity.Name + "Controller.cs"),
-                            overwrite),
-                        new T4GeneratorCommand(new Test { Model = entity, Info = info },
-                            Path.Combine(outputDir, info.ProjectName + "IntegrationTest", entity.Name + "Test.cs"),
-                            overwrite),
-                        new MkdirGeneratorCommand(Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
-                            entity.Name.ToKebabCase() + "-edit")),
-                        new T4GeneratorCommand(new EditComponent { Model = entity },
-                            Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
-                                entity.Name.ToKebabCase() + "-edit", entity.Name.ToKebabCase() + "-edit.component.ts"),
-                            overwrite),
-                        new T4GeneratorCommand(new EditTemplate { Model = entity },
-                            Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
-                                entity.Name.ToKebabCase() + "-edit",
-                                entity.Name.ToKebabCase() + "-edit.component.html"), overwrite),
-                        new T4GeneratorCommand(new EditComponentSpec { Model = entity, Entities = entities },
-                            Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
-                                entity.Name.ToKebabCase() + "-edit",
-                                entity.Name.ToKebabCase() + "-edit.component.spec.ts"), overwrite),
-                        new T4GeneratorCommand(new ListScss(),
-                            Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
-                                entity.Name.ToKebabCase() + "-edit",
-                                entity.Name.ToKebabCase() + "-edit.component.scss"), overwrite),
-                        new MkdirGeneratorCommand(Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
-                            entity.Name.ToKebabCase() + "-list")),
-                        new T4GeneratorCommand(new ListComponent { Model = entity },
-                            Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
-                                entity.Name.ToKebabCase() + "-list", entity.Name.ToKebabCase() + "-list.component.ts"),
-                            overwrite),
-                        new T4GeneratorCommand(new ListTemplate { Model = entity },
-                            Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
-                                entity.Name.ToKebabCase() + "-list",
-                                entity.Name.ToKebabCase() + "-list.component.html"), overwrite),
-                        new T4GeneratorCommand(new ListComponentSpec { Model = entity },
-                            Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
-                                entity.Name.ToKebabCase() + "-list",
-                                entity.Name.ToKebabCase() + "-list.component.spec.ts"), overwrite),
-                        new T4GeneratorCommand(new ListScss(),
-                            Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
-                                entity.Name.ToKebabCase() + "-list",
-                                entity.Name.ToKebabCase() + "-list.component.scss"), overwrite)
-                    }));
+                    (new T4GeneratorCommand(new EfModel { Model = entity, Info = info },
+                        Path.Combine(outputDir, info.ProjectName, "Models", entity.Name + ".cs"), overwrite), new T4GeneratorCommand(new Controller { Model = entity, Info = info },
+                        Path.Combine(outputDir, info.ProjectName, "Controllers", entity.Name + "Controller.cs"),
+                        overwrite), new T4GeneratorCommand(new Test { Model = entity, Info = info },
+                        Path.Combine(outputDir, info.ProjectName + "IntegrationTest", entity.Name + "Test.cs"),
+                        overwrite), new MkdirGeneratorCommand(Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
+                        entity.Name.ToKebabCase() + "-edit")), new T4GeneratorCommand(new EditComponent { Model = entity },
+                        Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
+                            entity.Name.ToKebabCase() + "-edit", entity.Name.ToKebabCase() + "-edit.component.ts"),
+                        overwrite), new T4GeneratorCommand(new EditTemplate { Model = entity },
+                        Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
+                            entity.Name.ToKebabCase() + "-edit",
+                            entity.Name.ToKebabCase() + "-edit.component.html"), overwrite), new T4GeneratorCommand(new EditComponentSpec { Model = entity, Entities = entities },
+                        Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
+                            entity.Name.ToKebabCase() + "-edit",
+                            entity.Name.ToKebabCase() + "-edit.component.spec.ts"), overwrite), new T4GeneratorCommand(new ListScss(),
+                        Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
+                            entity.Name.ToKebabCase() + "-edit",
+                            entity.Name.ToKebabCase() + "-edit.component.scss"), overwrite), new MkdirGeneratorCommand(Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
+                        entity.Name.ToKebabCase() + "-list")), new T4GeneratorCommand(new ListComponent { Model = entity },
+                        Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
+                            entity.Name.ToKebabCase() + "-list", entity.Name.ToKebabCase() + "-list.component.ts"),
+                        overwrite), new T4GeneratorCommand(new ListTemplate { Model = entity },
+                        Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
+                            entity.Name.ToKebabCase() + "-list",
+                            entity.Name.ToKebabCase() + "-list.component.html"), overwrite), new T4GeneratorCommand(new ListComponentSpec { Model = entity },
+                        Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
+                            entity.Name.ToKebabCase() + "-list",
+                            entity.Name.ToKebabCase() + "-list.component.spec.ts"), overwrite), new T4GeneratorCommand(new ListScss(),
+                        Path.Combine(outputDir, info.ProjectName + "Client", "src", "app",
+                            entity.Name.ToKebabCase() + "-list",
+                            entity.Name.ToKebabCase() + "-list.component.scss"), overwrite)));
 
             var selectedParts = partsFilter!=null ? pipeline.Where(x=>Regex.Match(x.Key, partsFilter).Success).Select(x => x.Key) : Prompt.MultiSelect("Select parts", pipeline.Select(x => x.Key));
 

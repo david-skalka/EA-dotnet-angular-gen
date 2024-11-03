@@ -108,7 +108,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ISeeder.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Api\ObjectInitializer.cs" />
     <Compile Include="Templates\Api\Program.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -199,7 +198,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ListTemplate.tt</DependentUpon>
     </Compile>
-    <Compile Include="Templates\Client\ObjectInitializer.cs" />
     <Compile Include="Templates\Client\ProxyConf.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
