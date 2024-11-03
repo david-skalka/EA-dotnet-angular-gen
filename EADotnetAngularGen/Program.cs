@@ -28,7 +28,7 @@ namespace EADotnetAngularGen
         }
 
 
-        private static void Generate(Element[] elements, Info info, string outputDir, bool overwrite, string partsFilter)
+        private static void Generate(Element[] elements, Info info, string outputDir, bool overwrite, string commandFilter)
         {
             var elementsSorted = elements.Select(x => x.Name)
                 .OrderTopologicallyBy(name => GetDependencies(elements, name))
@@ -43,7 +43,7 @@ namespace EADotnetAngularGen
             var clientProjectPath = Path.Combine(outputDir, info.ProjectName + "Client");
 
 
-            var pipeline = new Dictionary<string, IGeneratorCommand>
+            var commands = new Dictionary<string, IGeneratorCommand>
             {
                 {
                     "initialize-solution", new MultiCommand(new ShellGeneratorCommand("dotnet", "new sln -n " + info.ProjectName + " -o " + outputDir + '"',
@@ -135,7 +135,7 @@ namespace EADotnetAngularGen
 
 
             foreach (var entity in entities)
-                pipeline.Add($"entity-{entity.Name.ToKebabCase()}",
+                commands.Add($"entity-{entity.Name.ToKebabCase()}",
                     new MultiCommand
                     (new T4GeneratorCommand(new EfModel { Model = entity, Info = info },
                         Path.Combine(outputDir, info.ProjectName, "Models", entity.Name + ".cs"), overwrite), new T4GeneratorCommand(new Controller { Model = entity, Info = info },
@@ -170,10 +170,10 @@ namespace EADotnetAngularGen
                             entity.Name.ToKebabCase() + "-list",
                             entity.Name.ToKebabCase() + "-list.component.scss"), overwrite)));
 
-            var selectedParts = partsFilter!=null ? pipeline.Where(x=>Regex.Match(x.Key, partsFilter).Success).Select(x => x.Key) : Prompt.MultiSelect("Select parts", pipeline.Select(x => x.Key));
+            var commandFilterUser = commandFilter != null  ? commandFilter : $"({string.Join( "|" , Prompt.MultiSelect("Select parts", commands.Select(x => x.Key)))})";
 
 
-            foreach (var part in selectedParts) pipeline[part].Execute();
+            foreach (var part in commands.Where(x => Regex.Match(x.Key, commandFilterUser).Success).Select(x => x.Key)) commands[part].Execute();
         }
 
 
@@ -199,7 +199,7 @@ namespace EADotnetAngularGen
                     try
                     {
                         Generate(elements, new Info() { ProjectName= options.ProjectName, SeedCount = options.SeedCount }, outputDir,
-                            options.Overwrite, options.PartsFilter);
+                            options.Overwrite, options.CommandFilter);
                     }
                     finally
                     {
@@ -234,8 +234,8 @@ namespace EADotnetAngularGen
         [Option('s', "seed-count", Default = 10)]
         public int SeedCount { get; set; } = 10;
 
-        [Option('p', "parts")]
-        public string PartsFilter { get; set; } = null;
+        [Option('c', "command-filter")]
+        public string CommandFilter { get; set; } = null;
 
 
         [Option("package", Default = "Model")] public string Package { get; set; } = string.Empty;
