@@ -207,6 +207,7 @@ namespace EADotnetAngularGen
                         repository.Exit();
                     }
 
+
                     return 0;
                 }, error => 1);
         }
